@@ -55,6 +55,7 @@
     <Compile Include="Geometry\RectTest.cs" />
     <Compile Include="Geometry\Vector2Test.cs" />
     <Compile Include="Geometry\Vector3Test.cs" />
+    <Compile Include="Graph\AStarTest.cs" />
     <Compile Include="Graph\CellInfoTest.cs" />
     <Compile Include="Graph\GraphDirectionTest.cs" />
     <Compile Include="Graph\NodeTest.cs" />

@@ -42,10 +42,24 @@ namespace MyNavMesh.Graph.PathFinding
 
         private void Init(double x, double y, double z, IPolygon polygon, IGraph<Node> graph, NodeInfo info = null)
         {
-            Info = info == null ? new Passable() : info;
             X = x;
             Y = y;
             Z = z;
+            if (info != null)
+            {
+                Info = info;
+            }
+            else
+            {
+                if(Z.AlmostEquals(0, 0))
+                {
+                    Info = new Passable();
+                }
+                else
+                {
+                    Info = new Empty();
+                }
+            }
             Polygon = polygon;
             Graph = graph;
         }

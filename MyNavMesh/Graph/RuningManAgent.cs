@@ -23,7 +23,7 @@ namespace MyNavMesh.Graph
 
         public bool CanMakeStep(Node source, Node target)
         {
-            if (target.X == 2 && target.Y == 2 && target.Z == 0)
+            if (target.X.AlmostEquals(2) && target.Y.AlmostEquals(2) && target.Z.AlmostEquals(0))
             {
                 Debug.Write(target);
             }
@@ -40,12 +40,35 @@ namespace MyNavMesh.Graph
                 horOffset.Y = 0;
                 wertOffset.X = 0;
 
-                bool hor = (((PolygonGrid3D)Nodes).Contains(source + horOffset))
-                               ? (((PolygonGrid3D)Nodes)[source + horOffset].Info is Passable)
-                               : true;
-                bool wert = (((PolygonGrid3D)Nodes).Contains(source + wertOffset))
-                                ? (((PolygonGrid3D)Nodes)[source + wertOffset].Info is Passable)
-                                : true;
+                bool hor;
+                if(((PolygonGrid3D)Nodes).Contains(source + horOffset))
+                {
+                    if(((PolygonGrid3D) Nodes)[source + horOffset].Info is Empty)
+                    {
+                        Debug.Write(target + "is empty");
+                    }
+                    hor = ((PolygonGrid3D) Nodes)[source + horOffset].Info is Passable;
+                }
+                else
+                {
+                    hor = true;
+                }
+
+
+                bool wert;
+                if (((PolygonGrid3D)Nodes).Contains(source + wertOffset))
+                {
+                    if (((PolygonGrid3D)Nodes)[source + wertOffset].Info is Empty)
+                    {
+                        Debug.Write(target + "is empty");
+                    }
+                    wert = ((PolygonGrid3D)Nodes)[source + wertOffset].Info is Passable;
+                }
+                else
+                {
+                    wert = true;
+                }
+
                 if (!(hor && wert && CanPass(target)))
                 {
                     return false;
@@ -126,7 +149,7 @@ namespace MyNavMesh.Graph
 
         public bool IsNearTarget(Node source, Node target, double distance)
         {
-            return (distance == 0);
+            return (distance.AlmostEquals(0, 1));
         }
 
         

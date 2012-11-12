@@ -3,6 +3,7 @@ bin
 obj
 *.suo
 _ReSharper.SusaninPathFinding
+SusaninPathFinding.sln.DotSettings.user
 
 # mstest test results
 TestResults

@@ -279,9 +279,9 @@ namespace MyNavMesh.Graph.PathFinding
         {
             if (agent == null)
                 throw new ArgumentNullException("agent");
-            if (source == null)
+            if (!(source is TNode))
                 throw new ArgumentNullException("source");
-            if (target == null)
+            if (!(target is TNode))
                 throw new ArgumentNullException("target");
 
             _agent = agent;
@@ -315,7 +315,7 @@ namespace MyNavMesh.Graph.PathFinding
 
                 // succeed if occupation target is in range
                 if (_agent.IsNearTarget(node, target, _bestNode._h) &&
-                    (ComparerCache<TNode>.EqualityComparer.Equals(source, node)
+                    (ComparerCache<TNode>.EqualityComparer.Equals(target, node)
                     || _agent.CanOccupy(node))) {
 
                     success = true;
@@ -597,7 +597,7 @@ namespace MyNavMesh.Graph.PathFinding
 
                     // update to new best node
                     if (cursor.F < bestF ||
-                        (cursor.F == bestF && cursorDistance < bestDistance))
+                        (cursor.F.AlmostEquals(bestF) && cursorDistance < bestDistance))
                     {
 
                         previous = preCursor;

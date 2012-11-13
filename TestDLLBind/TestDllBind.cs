@@ -1,13 +1,28 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using RGiesecke.DllExport;
 
 namespace TestDLLBind
 {
+    [StructLayout(LayoutKind.Sequential)]
+    public struct TArray
+    {
+        public IntPtr DataPtr;
+        public int ArrayNum;
+        public int ArrayMax;
+    }
+    
+
     public static class TestDllBind
     {
         [DllExport("TestSendArray", CallingConvention = CallingConvention.StdCall)]
-        public static int TestSendArray()
+        public static int TestSendArray(ref TArray wrapper)
         {
+            var managedArray = new int[wrapper.ArrayNum];
+
+            Marshal.Copy(wrapper.DataPtr,managedArray,0,wrapper.ArrayNum);
+
+            //ha ha ha here we have managedArray passed from UDK
             return 123;
         }
 

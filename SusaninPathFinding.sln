@@ -1,13 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFindingForm", "NavMesh\SusaninPathFindingForm.csproj", "{929D4A1D-724C-4E4B-87BD-86967A9F192C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFindingForm", "SusaninPathFindingForm\SusaninPathFindingForm.csproj", "{929D4A1D-724C-4E4B-87BD-86967A9F192C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFinding", "MyNavMesh\SusaninPathFinding.csproj", "{D04432FB-06A2-4387-B218-EBDDF7AB2E3A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFinding", "SusaninPathFinding\SusaninPathFinding.csproj", "{D04432FB-06A2-4387-B218-EBDDF7AB2E3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFindingBenchmark", "NavMeshBenchmark\SusaninPathFindingBenchmark.csproj", "{AB55AE10-C7BA-49BE-82DE-F840D214B9BB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFindingBenchmark", "SusaninPathFindingBenchmark\SusaninPathFindingBenchmark.csproj", "{AB55AE10-C7BA-49BE-82DE-F840D214B9BB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFindingTests", "NavMeshTest\SusaninPathFindingTests.csproj", "{797014A5-278B-4203-9DE9-B6476A94C3D6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SusaninPathFindingTests", "SusaninPathFindingTests\SusaninPathFindingTests.csproj", "{797014A5-278B-4203-9DE9-B6476A94C3D6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDLLBind", "TestDLLBind\TestDLLBind.csproj", "{9EB132C7-210A-4153-B4E5-927CDE58960C}"
 EndProject

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using MyNavMesh.Geometry;
+using SusaninPathFinding.Geometry;
 using RGiesecke.DllExport;
 
 namespace TestDLLBind

@@ -20,10 +20,10 @@ namespace TestDLLBind
         {
             var managedArray = new int[wrapper.ArrayNum];
 
-            Marshal.Copy(wrapper.DataPtr,managedArray,0,wrapper.ArrayNum);
+            Marshal.Copy(wrapper.DataPtr, managedArray, 0, wrapper.ArrayNum);
 
             //ha ha ha here we have managedArray passed from UDK
-            return 123;
+            return 123;//managedArray.Length;
         }
 
         //[DllExport("TestSendTwoArrays", CallingConvention = CallingConvention.StdCall)]
@@ -32,11 +32,11 @@ namespace TestDLLBind
         //    return arr2.Data.Length;
         //}
 
-        //[DllExport("TestSendValue", CallingConvention = CallingConvention.StdCall)]
-        //public static double TestSendValue(double val)
-        //{
-        //    return val;
-        //}
+        [DllExport("TestSendValue", CallingConvention = CallingConvention.StdCall)]
+        public static int TestSendValue(int ptr)
+        {
+            return 321;
+        }
 
         //[DllExport("TestSendTwoValues", CallingConvention = CallingConvention.StdCall)]
         //public static double TestSendTwoValues(double val1, double val2)

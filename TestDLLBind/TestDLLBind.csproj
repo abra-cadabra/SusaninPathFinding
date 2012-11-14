@@ -86,6 +86,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyNavMesh\SusaninPathFinding.csproj">
+      <Project>{d04432fb-06a2-4387-b218-ebddf7ab2e3a}</Project>
+      <Name>SusaninPathFinding</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="../packages/UnmanagedExports.1.2.2.23707/tools/RGiesecke.DllExport.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

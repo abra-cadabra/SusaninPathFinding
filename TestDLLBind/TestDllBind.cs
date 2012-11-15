@@ -92,10 +92,41 @@ namespace TestDLLBind
         //    return arr2.Data.Length;
         //}
 
-        [DllExport("TestSendValue", CallingConvention = CallingConvention.StdCall)]
-        public static int TestSendValue(int ptr)
+        [DllExport("TestFindPath", CallingConvention = CallingConvention.StdCall)]
+        public static int TestFindPath(ref UdkVector from, ref UdkVector to)
         {
-            return 321;
+            return 3;
+        }
+
+        [DllExport("TestGetResult", CallingConvention = CallingConvention.StdCall)]
+        public static void TestGetResult(ref UdkDynamicArray wrapper)
+        {
+
+            var source = new Vector3[3];
+            source[0] = new Vector3() { X = 1, Y = 2, Z = 3 };
+            source[1] = new Vector3() { X = 4, Y = 5, Z = 6 };
+            source[2] = new Vector3() { X = 53, Y = 1, Z = 16 };
+
+            int floatsLength = 3 * source.Length;
+
+            var outputArray = new float[floatsLength];
+
+            for (int i = 0; i < source.Length; i++)
+            {
+                outputArray[i * 3 + 0] = (float)source[i].X;
+                outputArray[i * 3 + 1] = (float)source[i].Y;
+                outputArray[i * 3 + 2] = (float)source[i].Z;
+            }
+
+            //wrapper.DataPtr = Marshal.AllocHGlobal(sizeof(float) * floatsLength);
+
+            Marshal.Copy(outputArray, 0, wrapper.DataPtr, floatsLength);
+
+            //wrapper.Count = source.Length;
+            //wrapper.MaxSize = source.Length;
+
+            //ha ha ha here we have managedArray passed from UDK
+            //return 123;//managedArray.Length;
         }
 
         [DllExport("TestChangeArray", CallingConvention = CallingConvention.StdCall)]

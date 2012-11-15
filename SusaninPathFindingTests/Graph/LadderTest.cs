@@ -28,7 +28,7 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void ConstructorTest()
         {
-            Tester.Direction.Should().Be(Direction.NorthEast);
+            Tester.Direction.Value.Should().Be(Direction.NorthEast);
         }
     }
 }

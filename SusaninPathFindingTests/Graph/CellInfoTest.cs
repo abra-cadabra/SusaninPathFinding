@@ -31,7 +31,7 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void ConstructorTest()
         {
-            Tester.GetType().Should().Be(typeof(Empty));
+            Tester.GetType().Should().Be(typeof(Passable));
         }
 
         [Test]

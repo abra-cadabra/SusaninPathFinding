@@ -232,7 +232,7 @@ namespace SusaninPathFinding.Graph
         public IList<Node> GetNeighbors(Node node, IGraphAgent<Node> agent = null)
         {
             IList<Node> neighbors = new List<Node>();//GraphDirection.Offsets.Length);
-            if (agent.Nodes != this)
+            if (agent != null && agent.Nodes != this)
                 agent.Nodes = this;
             for (int i = 0; i < GraphDirection.Offsets.Length - 1; i++)
             {

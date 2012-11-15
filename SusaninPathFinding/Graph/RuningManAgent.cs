@@ -149,7 +149,7 @@ namespace SusaninPathFinding.Graph
 
         public bool IsNearTarget(Node source, Node target, double distance)
         {
-            return (distance.AlmostEquals(0, 1));
+            return (distance.AlmostEquals(0, 0));
         }
 
         

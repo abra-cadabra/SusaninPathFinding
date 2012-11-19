@@ -4,8 +4,10 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using RGiesecke.DllExport;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph;
+using SusaninPathFinding.Graph.NodeInfoTypes;
 using SusaninPathFinding.Graph.PathFinding;
 
 namespace SusaninPathFindingUDKInterface
@@ -23,13 +25,16 @@ namespace SusaninPathFindingUDKInterface
 
     public class CellInfo
     {
-        public int PointType { get; set; }
+        public float PointType { get; set; }
+        public float Direction { get; set; }
         public Vector3 Point { get; set; }
+        
 
         public CellInfo()
         {
             Point = new Vector3();
             PointType = -1;
+            Direction = -1;
         }
 
         public override string ToString()
@@ -70,6 +75,7 @@ namespace SusaninPathFindingUDKInterface
         /// <param name="SizeZ">Z size of the map.</param>
         /// <param name="cellSize">Sizes of the cell.</param>
         /// <returns></returns>
+        [DllExport("DLLCreateGrid", CallingConvention = CallingConvention.StdCall)]
         public static int DLLCreateGrid(int sizeX, int sizeY, int sizeZ, ref UdkVector cellSize)
         {
             if(Grids == null)
@@ -81,6 +87,34 @@ namespace SusaninPathFindingUDKInterface
             return Grids.Count - 1;
         }
 
+        [DllExport("TestSendArray", CallingConvention = CallingConvention.StdCall)]
+        public static int TestSendArray(ref UdkDynamicArray wrapper)
+        {
+            int valuesCount = wrapper.Count * 5; //*5 => 2 int point type + 3 float from Vector struct
+
+            //var intArr = new int[valuesCount];
+            var floatArr = new float[valuesCount];
+
+            //int and floats are assumed to be both of 32 bits (but it is not everywhere true)
+            //Marshal.Copy(wrapper.DataPtr, intArr, 0, valuesCount);
+            Marshal.Copy(wrapper.DataPtr, floatArr, 0, valuesCount);
+
+            var cells = new List<CellInfo>();
+            for (int i = 0; i < valuesCount; i += 5)
+            {
+                var cell = new CellInfo();
+                cell.PointType = floatArr[i];
+                cell.Direction = floatArr[i + 1];
+                cell.Point.X = floatArr[i + 2];
+                cell.Point.Y = floatArr[i + 3];
+                cell.Point.Z = floatArr[i + 4];
+                
+                cells.Add(cell);
+            }
+
+            //ha ha ha here we have managedArray passed from UDK
+            return 123;//managedArray.Length;
+        }
         //public static bool DLLResizeMap(int mapId, int sizeX, int sizeY, int sizeZ, ref UdkVector vector)
         //{
         //    if (Grids.Count > 0 && mapId >= 0 && mapId < Grids.Count)
@@ -99,40 +133,114 @@ namespace SusaninPathFindingUDKInterface
         //    }
         //}
 
-        public static bool DLLCommitCells(int mapId, ref UdkDynamicArray wrapper)
+        [DllExport("DLLCommitCells", CallingConvention = CallingConvention.StdCall)]
+        public static bool CommitCells(int mapId, ref UdkDynamicArray wrapper)
         {
-            int valuesCount = wrapper.Count * 4; //*4 => 1 int point type + 3 float from Vector struct
+            int valuesCount = wrapper.Count * 5; //*5 => 2 int point type + 3 float from Vector struct
 
-            var intArr = new int[valuesCount];
+            //var intArr = new int[valuesCount];
             var floatArr = new float[valuesCount];
 
             //int and floats are assumed to be both of 32 bits (but it is not everywhere true)
-            Marshal.Copy(wrapper.DataPtr, intArr, 0, valuesCount);
+            //Marshal.Copy(wrapper.DataPtr, intArr, 0, valuesCount);
             Marshal.Copy(wrapper.DataPtr, floatArr, 0, valuesCount);
 
-            var cells = new List<CellInfo>();
-            for (int i = 0; i < valuesCount; i += 4)
+            var cell = new CellInfo();
+            for (int i = 0; i < valuesCount; i += 5)
             {
-                var cell = new CellInfo();
-                cell.PointType = intArr[i];
-                cell.Point.X = floatArr[i + 1];
-                cell.Point.Y = floatArr[i + 2];
-                cell.Point.Z = floatArr[i + 3];
-                cells.Add(cell);
+                cell.PointType = floatArr[i];
+                cell.Direction = floatArr[i + 1];
+                cell.Point.X = floatArr[i + 2];
+                cell.Point.Y = floatArr[i + 3];
+                cell.Point.Z = floatArr[i + 4];
+
+                if ((cell.Point.X < 0 || cell.Point.X >= Grids[mapId].SizeX)
+                 || (cell.Point.Y < 0 || cell.Point.Y >= Grids[mapId].SizeY)
+                 || (cell.Point.Z < 0 || cell.Point.Z >= Grids[mapId].SizeZ))
+                    return false; // coordinates out of range
+
+                if (cell.PointType < 0 || cell.PointType > 4)
+                    return false;
+
+                if (cell.Direction < 0 || cell.Direction > 27)
+                    return false;
+
+                Grids[mapId][(int) cell.Point.X, (int) cell.Point.Y, (int) cell.Point.Z].Info =
+                    UdkInterfaceUtility.NodeInfoFromCellInfo(cell);
+                   // NodeInfo.Factory((CellType)cell.PointType);
             }
 
+            return true;
 
         }
 
+        [DllExport("DLLUpdateCells", CallingConvention = CallingConvention.StdCall)]
+        public static bool UpdateCells(int mapId, ref UdkDynamicArray wrapper)
+        {
+            try
+            {
+                int Length = 5 * Grids[mapId].Nodes.Length;
+
+                //var cells = new CellInfo[Grids[mapId].Nodes.Length];
+                var floatArray = new float[Length];
+
+                int index = 0;
+                for (int i = 0; i < Grids[mapId].SizeZ; i++)
+                {
+                    for (int j = 0; j < Grids[mapId].SizeY; j++)
+                    {
+                        for (int k = 0; k < Grids[mapId].SizeX; k++)
+                        {
+                            floatArray[index * 5 + 0] = (float)Grids[mapId].Nodes[k, j, i].Info.Type();
+                            if (Grids[mapId].Nodes[k, j, i].Info is Ladder)
+                                floatArray[index * 5 + 1] = (float)((Ladder)Grids[mapId].Nodes[k, j, i].Info).Direction.Value;
+                            floatArray[index * 5 + 2] = (float)Grids[mapId].Nodes[k, j, i].X;
+                            floatArray[index * 5 + 3] = (float)Grids[mapId].Nodes[k, j, i].Y;
+                            floatArray[index * 5 + 4] = (float)Grids[mapId].Nodes[k, j, i].Z;
+                            index++;
+                        }
+                    }
+                }
+
+                //for (int i = 0; i < Grids[mapId].Nodes.Length; i++)
+                //{
+                //    floatArray[i * 5 + 0] = (float)Grids[mapId].Nodes[i].Info.Type();
+                //    if (Grids[mapId].Nodes[i].Info is Ladder)
+                //        floatArray[i * 5 + 1] = (float)((Ladder)Grids[mapId].Nodes[i].Info).Direction.Value;
+                //    floatArray[i * 5 + 2] = (float)Grids[mapId].Nodes[i].Y;
+                //    floatArray[i * 5 + 3] = (float)Grids[mapId].Nodes[i].X;
+                //    floatArray[i * 5 + 4] = (float)Grids[mapId].Nodes[i].Z;
+                //}
+
+
+                //wrapper.DataPtr = Marshal.AllocHGlobal(sizeof(float) * floatsLength);
+
+                //for (int i = 0; i < Grids[mapId].Nodes.Length; i++)
+                //{
+                //    Marshal.Copy(intArray, i * 5, wrapper.DataPtr, i * 5 + 1);
+                //}
+                Marshal.Copy(floatArray, 0, wrapper.DataPtr, Length);
+                return true;
+
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+            
+
+            //wrapper.Count = source.Length;
+            //wrapper.MaxSize = source.Length;
+
+            //ha ha ha here we have managedArray passed from UDK
+            //return 123;//managedArray.Length;
+        }
         #endregion
 
         #region Type translation functions
 
-        public Node CellInfoToNode(CellInfo info)
-        {
-            Node node = new Node(info.Point, null, null, );
-        }
-
+        
         #endregion
     }
 }

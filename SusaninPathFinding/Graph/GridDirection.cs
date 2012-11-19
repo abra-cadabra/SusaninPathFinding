@@ -13,8 +13,9 @@ namespace SusaninPathFinding.Graph
     /// <summary>
     /// Specifies the list of main directions, which will be later used to describe an offsets for a cell.
     /// </summary>
-    public enum Direction
+    public enum CompassDirection
     {
+        NA,
         North,
         NorthEast,
         East,
@@ -42,12 +43,10 @@ namespace SusaninPathFinding.Graph
         SouthWestRaise,
         WestRaise,
         NorthWestRaise,
-        Raise,
-
-        NA
+        Raise
     }
 
-    public class GraphDirection
+    public class GridDirection
     {
         #region Fields
 
@@ -59,7 +58,7 @@ namespace SusaninPathFinding.Graph
         /// <summary>
         /// List of directions, indexed by offsets
         /// </summary>
-        private static ArrayEx<Direction> _directions;
+        private static ArrayEx<CompassDirection> _directions;
 
         /// <summary>
         /// The currently selected direction
@@ -70,13 +69,22 @@ namespace SusaninPathFinding.Graph
 
         #region Properties
 
-        public Direction Value { get; set; }
+        public CompassDirection Value { get; set; }
+
+        public static Vector3[] Offsets
+        {
+            get
+            {
+                InitOffsets();
+                return _offsets;
+            }
+        }
 
         #endregion
         
         #region Constructors
 
-        public GraphDirection(Direction dir)
+        public GridDirection(CompassDirection dir)
         {
             Value = dir;
         }
@@ -91,6 +99,7 @@ namespace SusaninPathFinding.Graph
             {
                 _offsets = new Vector3[]
                     {
+                        new Vector3( 0,  0,  0),  // N/A
                         new Vector3( 0, -1,  0),  // North
                         new Vector3( 1, -1,  0),  // North-East
                         new Vector3( 1,  0,  0),  // East
@@ -123,53 +132,46 @@ namespace SusaninPathFinding.Graph
             }
         }
 
-        public static Vector3[] Offsets
-        {
-            get
-            {
-                InitOffsets();
-                return _offsets;
-            }
-        }
-
         private static void InitDirections()
         {
             if (_directions == null)
             {
-                _directions = new ArrayEx<Direction>(new int[] { 3, 3, 3 });
+                _directions = new ArrayEx<CompassDirection>(new int[] { 3, 3, 3 });
 
-                _directions[1, 0, 1] = Direction.North;  // North[0, -1,  0]
-                _directions[2, 0, 1] = Direction.NorthEast;  // North-East[1, -1,  0]
-                _directions[2, 1, 1] = Direction.East;  // East[1,  0,  0]
-                _directions[2, 2, 1] = Direction.SouthEast;  // South-East[1,  1,  0]
-                _directions[1, 2, 1] = Direction.South;  // South[0,  1,  0]
-                _directions[0, 2, 1] = Direction.SouthWest;  // South-West[-1, 1,  0]
-                _directions[0, 1, 1] = Direction.West;  // West[-1, 0,  0]
-                _directions[0, 0, 1] = Direction.NorthWest;  // North-West[-1,-1,  0]
+                _directions[0, 0, 0] = CompassDirection.NA;
 
-                _directions[1, 0, 0] = Direction.NorthLower;  // North-Lower[0, -1, -1]
-                _directions[2, 0, 0] = Direction.NorthEastLower;  // North-East-Lower[1, -1, -1]
-                _directions[2, 1, 0] = Direction.EastLower; // East-Lower[1,  0, -1]
-                _directions[2, 2, 0] = Direction.SouthEastLower;  // South-East-Lower[ 1,  1, -1]
-                _directions[1, 2, 0] = Direction.SouthLower;  // South-Lower[0,  1, -1]
-                _directions[0, 2, 0] = Direction.SouthWestLower;  // South-West-Lower[-1, 1, -1]
-                _directions[0, 1, 0] = Direction.WestLower; // West-Lower[-1, 0, -1]
-                _directions[0, 0, 0] = Direction.NorthWestLower; // North-West-Lower[-1,-1, -1]
-                _directions[1, 1, 0] = Direction.Lower;  // Lower[0,  0, -1]
+                _directions[1, 0, 1] = CompassDirection.North;  // North[0, -1,  0]
+                _directions[2, 0, 1] = CompassDirection.NorthEast;  // North-East[1, -1,  0]
+                _directions[2, 1, 1] = CompassDirection.East;  // East[1,  0,  0]
+                _directions[2, 2, 1] = CompassDirection.SouthEast;  // South-East[1,  1,  0]
+                _directions[1, 2, 1] = CompassDirection.South;  // South[0,  1,  0]
+                _directions[0, 2, 1] = CompassDirection.SouthWest;  // South-West[-1, 1,  0]
+                _directions[0, 1, 1] = CompassDirection.West;  // West[-1, 0,  0]
+                _directions[0, 0, 1] = CompassDirection.NorthWest;  // North-West[-1,-1,  0]
 
-                _directions[1, 0, 2] = Direction.NorthRaise;  // North-Raise[0, -1,  1]
-                _directions[2, 0, 2] = Direction.NorthEastRaise;  // North-East-Raise[1, -1,  1]
-                _directions[2, 1, 2] = Direction.EastRaise;  // East-Raise[1,  0,  1]
-                _directions[2, 2, 2] = Direction.SouthEastRaise;  // South-East-Raise[1,  1,  1]
-                _directions[1, 2, 2] = Direction.SouthRaise;  // South-Raise[0,  1,  1]
-                _directions[0, 2, 2] = Direction.SouthWestRaise; // South-West-Raise[-1, 1,  1]
-                _directions[0, 1, 2] = Direction.WestRaise;  // West-Raise[-1,  0,  1]
-                _directions[0, 0, 2] = Direction.NorthWestRaise;  // North-West-Raise[-1, -1,  1]
-                _directions[1, 1, 2] = Direction.Raise;  // Raise[ 0,  0,  1]
+                _directions[1, 0, 0] = CompassDirection.NorthLower;  // North-Lower[0, -1, -1]
+                _directions[2, 0, 0] = CompassDirection.NorthEastLower;  // North-East-Lower[1, -1, -1]
+                _directions[2, 1, 0] = CompassDirection.EastLower; // East-Lower[1,  0, -1]
+                _directions[2, 2, 0] = CompassDirection.SouthEastLower;  // South-East-Lower[ 1,  1, -1]
+                _directions[1, 2, 0] = CompassDirection.SouthLower;  // South-Lower[0,  1, -1]
+                _directions[0, 2, 0] = CompassDirection.SouthWestLower;  // South-West-Lower[-1, 1, -1]
+                _directions[0, 1, 0] = CompassDirection.WestLower; // West-Lower[-1, 0, -1]
+                _directions[0, 0, 0] = CompassDirection.NorthWestLower; // North-West-Lower[-1,-1, -1]
+                _directions[1, 1, 0] = CompassDirection.Lower;  // Lower[0,  0, -1]
+
+                _directions[1, 0, 2] = CompassDirection.NorthRaise;  // North-Raise[0, -1,  1]
+                _directions[2, 0, 2] = CompassDirection.NorthEastRaise;  // North-East-Raise[1, -1,  1]
+                _directions[2, 1, 2] = CompassDirection.EastRaise;  // East-Raise[1,  0,  1]
+                _directions[2, 2, 2] = CompassDirection.SouthEastRaise;  // South-East-Raise[1,  1,  1]
+                _directions[1, 2, 2] = CompassDirection.SouthRaise;  // South-Raise[0,  1,  1]
+                _directions[0, 2, 2] = CompassDirection.SouthWestRaise; // South-West-Raise[-1, 1,  1]
+                _directions[0, 1, 2] = CompassDirection.WestRaise;  // West-Raise[-1,  0,  1]
+                _directions[0, 0, 2] = CompassDirection.NorthWestRaise;  // North-West-Raise[-1, -1,  1]
+                _directions[1, 1, 2] = CompassDirection.Raise;  // Raise[ 0,  0,  1]
             }
         }
 
-        public static Direction Directions(int x, int y, int z)
+        public static CompassDirection Directions(int x, int y, int z)
         {
             if (x > 1 && x < -1)
             {
@@ -193,7 +195,7 @@ namespace SusaninPathFinding.Graph
             return _directions[x+1, y+1, z+1];
         }
 
-        public static Direction Directions(Vector3 v)
+        public static CompassDirection Directions(Vector3 v)
         {
             return Directions((int)v.X, (int)v.Y, (int)v.Z);
             //if (v.X > 1 && v.X < -1)
@@ -220,7 +222,7 @@ namespace SusaninPathFinding.Graph
 
         public static bool IsDiagonal(Vector3 offset)
         {
-            Direction dir = Directions(offset);
+            CompassDirection dir = Directions(offset);
 
             return IsDiagonal(dir);
             //if  (  dir == Direction.West
@@ -234,20 +236,20 @@ namespace SusaninPathFinding.Graph
             //    return true;
         }
 
-        public static bool IsDiagonal(Direction dir)
+        public static bool IsDiagonal(CompassDirection dir)
         {
-            if (dir == Direction.West
-                || dir == Direction.North
-                || dir == Direction.East
-                || dir == Direction.South
-                || dir == Direction.Raise
-                || dir == Direction.Lower)
+            if (dir == CompassDirection.West
+                || dir == CompassDirection.North
+                || dir == CompassDirection.East
+                || dir == CompassDirection.South
+                || dir == CompassDirection.Raise
+                || dir == CompassDirection.Lower)
                 return false;
             else
                 return true;
         }
 
-        public static Direction Opposite(Direction dir)
+        public static CompassDirection Opposite(CompassDirection dir)
         {
             InitOffsets();
             Vector3 v = _offsets[(int) dir];
@@ -255,16 +257,26 @@ namespace SusaninPathFinding.Graph
             return Opposite(v); //Directions((int)v.X * -1, (int)v.Y * -1, (int)v.Z * -1);
         }
 
-        public static Direction Opposite(Vector3 offset)
+        public static CompassDirection Opposite(Vector3 offset)
         {
             return Directions((int)offset.X * -1, (int)offset.Y * -1, (int)offset.Z * -1);
         }
 
-        public Direction Opposite()
+        public CompassDirection Opposite()
         {
             return Opposite(Value);
         }
 
+        public CompassDirection FromRotator(double pitch, double yaw, double roll)
+        {
+            Vector3 v = new Vector3(1, 0, 0);
+
+            v.Pitch(((int)pitch));
+            v.Yaw(((int)yaw));
+            v.Roll(((int)roll));
+
+            return Directions(v);
+        }
         #endregion
 
         public bool IsDiagonal()

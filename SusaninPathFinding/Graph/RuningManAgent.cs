@@ -35,7 +35,7 @@ namespace SusaninPathFinding.Graph
             dirOffset = target - source;
             dirOffset.Z = 0;
 
-            if (GraphDirection.IsDiagonal(dirOffset))
+            if (GridDirection.IsDiagonal(dirOffset))
             {
                 horOffset.Y = 0;
                 wertOffset.X = 0;
@@ -87,8 +87,8 @@ namespace SusaninPathFinding.Graph
                 p.Z = 0;
                 if (!(source.Info is Ladder))
                 {
-                    bool invalidDirection1 = (GraphDirection.Directions(p) != ((Ladder) target.Info).Direction.Value);
-                    bool invalidDirection2 = (GraphDirection.Directions(p) != ((Ladder) target.Info).Direction.Opposite());
+                    bool invalidDirection1 = (GridDirection.Directions(p) != ((Ladder) target.Info).Direction.Value);
+                    bool invalidDirection2 = (GridDirection.Directions(p) != ((Ladder) target.Info).Direction.Opposite());
                     if (target.Z != source.Z || invalidDirection1 && invalidDirection2)
                     {
                         return false;
@@ -96,7 +96,7 @@ namespace SusaninPathFinding.Graph
                 }
                 else
                 {
-                    if (GraphDirection.Directions(p) != ((Ladder)target.Info).Direction.Value && GraphDirection.Directions(p) != ((Ladder)target.Info).Direction.Opposite())
+                    if (GridDirection.Directions(p) != ((Ladder)target.Info).Direction.Value && GridDirection.Directions(p) != ((Ladder)target.Info).Direction.Opposite())
                     {
                         return false;
                     }
@@ -140,7 +140,7 @@ namespace SusaninPathFinding.Graph
             //        cost = 5;
             //        break;
             //}
-            if(GraphDirection.IsDiagonal(target - source))
+            if(GridDirection.IsDiagonal(target - source))
             {
                 cost = (int)(cost * 1.4);
             }

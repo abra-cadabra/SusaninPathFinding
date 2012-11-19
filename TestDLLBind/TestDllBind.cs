@@ -10,6 +10,7 @@ namespace TestDLLBind
     public class CellInfo
     {
         public int PointType { get; set; }
+        public int Direction { get; set; }
         public Vector3 Point { get; set; }
 
         public CellInfo()
@@ -52,7 +53,7 @@ namespace TestDLLBind
         [DllExport("TestSendArray", CallingConvention = CallingConvention.StdCall)]
         public static int TestSendArray(ref UdkDynamicArray wrapper)
         {
-            int valuesCount = wrapper.Count * 4; //*4 => 1 int point type + 3 float from Vector struct
+            int valuesCount = wrapper.Count * 5; //*4 => 1 int point type + 3 float from Vector struct
 
             var intArr = new int[valuesCount];
             var floatArr = new float[valuesCount];
@@ -62,13 +63,15 @@ namespace TestDLLBind
             Marshal.Copy(wrapper.DataPtr, floatArr, 0, valuesCount);
 
             var cells = new List<CellInfo>();
-            for (int i = 0; i < valuesCount; i += 4)
+            for (int i = 0; i < valuesCount; i += 5)
             {
                 var cell = new CellInfo();
                 cell.PointType = intArr[i];
-                cell.Point.X = floatArr[i + 1];
-                cell.Point.Y = floatArr[i + 2];
-                cell.Point.Z = floatArr[i + 3];
+                cell.Direction = intArr[i + 1];
+                cell.Point.X = floatArr[i + 2];
+                cell.Point.Y = floatArr[i + 3];
+                cell.Point.Z = floatArr[i + 4];
+
                 cells.Add(cell);
             }
 

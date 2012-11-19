@@ -80,7 +80,7 @@
     <Compile Include="Geometry\Vector3Test.cs" />
     <Compile Include="Graph\AStarTest.cs" />
     <Compile Include="Graph\CellInfoTest.cs" />
-    <Compile Include="Graph\GraphDirectionTest.cs" />
+    <Compile Include="Graph\GridDirectionTest.cs" />
     <Compile Include="Graph\NodeTest.cs" />
     <Compile Include="Graph\LadderTest.cs" />
     <Compile Include="Graph\PolygonGrid3DTest.cs" />

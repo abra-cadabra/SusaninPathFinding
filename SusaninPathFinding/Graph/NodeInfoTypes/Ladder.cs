@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SusaninPathFinding.Graph.NodeInfoTypes;
 
 namespace SusaninPathFinding.Graph
 {
     public class Ladder : PartialyPassable
     {
-        public GraphDirection Direction { get; set; }
+        public GridDirection Direction { get; set; }
 
-        public Ladder(Direction dir)
+        public Ladder(CompassDirection dir)
         {
-            Direction = new GraphDirection(dir);
+            Direction = new GridDirection(dir);
         }
     }
 }

@@ -34,6 +34,7 @@ namespace SusaninPathFinding.Graph
 
     public class Passable : NodeInfo
     {
+
         //private CellType _type;
 
         //public virtual CellType Type

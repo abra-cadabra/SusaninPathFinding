@@ -95,6 +95,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Angle.cs" />
     <Compile Include="ArgumentNullOrEmpty.cs" />
     <Compile Include="Collections\ArrayEx.cs" />
     <Compile Include="Collections\CollectionsExtension.cs" />
@@ -121,7 +122,7 @@
     <Compile Include="Graph\PathFinding\GridNode3D.cs" />
     <Compile Include="Graph\PathFinding\AStar.cs" />
     <Compile Include="Graph\NodeInfoTypes\Passable.cs" />
-    <Compile Include="Graph\GraphDirection.cs" />
+    <Compile Include="Graph\GridDirection.cs" />
     <Compile Include="Graph\IGraph.cs" />
     <Compile Include="Graph\IGraphAgent.cs" />
     <Compile Include="Graph\PathFinding\IGraphPath.cs" />

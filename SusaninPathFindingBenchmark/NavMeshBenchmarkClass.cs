@@ -55,7 +55,7 @@ namespace SusaninPathFindingBenchmark
             Grid[3, 2, 0].Info = new Impassable();
             Grid[5, 2, 0].Info = new Impassable();
 
-            Grid[1, 3, 0].Info = new Ladder(Direction.East);
+            Grid[1, 3, 0].Info = new Ladder(CompassDirection.East);
             Grid[2, 3, 0].Info = new Impassable();
             Grid[3, 3, 0].Info = new Impassable();
             Grid[5, 3, 0].Info = new Impassable();
@@ -69,7 +69,7 @@ namespace SusaninPathFindingBenchmark
             Grid[3, 2, 1].Info = new Passable();
             Grid[5, 2, 1].Info = new Passable();
 
-            Grid[2, 3, 1].Info = new Ladder(Direction.East);
+            Grid[2, 3, 1].Info = new Ladder(CompassDirection.East);
             Grid[3, 3, 1].Info = new Passable();
             Grid[5, 3, 1].Info = new Passable();
 

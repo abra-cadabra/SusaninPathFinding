@@ -234,11 +234,11 @@ namespace SusaninPathFinding.Graph
             IList<Node> neighbors = new List<Node>();//GraphDirection.Offsets.Length);
             if (agent != null && agent.Nodes != this)
                 agent.Nodes = this;
-            for (int i = 0; i < GraphDirection.Offsets.Length - 1; i++)
+            for (int i = 1; i < GridDirection.Offsets.Length - 1; i++)
             {
-                if(Contains(node + GraphDirection.Offsets[i]))
+                if(Contains(node + GridDirection.Offsets[i]))
                 {
-                    Node neighbor = this[node + GraphDirection.Offsets[i]];
+                    Node neighbor = this[node + GridDirection.Offsets[i]];
                     //if (!Contains(neighbor))
                     //    continue;
 

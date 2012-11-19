@@ -57,7 +57,7 @@ namespace SusaninPathFindingTests.Graph
 
             Nodes[1, 0, 0].Info = new Impassable();
             Nodes[0, 1, 0].Info = new Impassable();
-            Nodes[1, 2, 0].Info = new Ladder(Direction.North);
+            Nodes[1, 2, 0].Info = new Ladder(CompassDirection.North);
             Nodes[2, 1, 0].Info = new Impassable();
 
             var list = Nodes[1, 1, 0].NeighborsPassableBy(Tester);
@@ -92,7 +92,7 @@ namespace SusaninPathFindingTests.Graph
         {
             Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable())).
                 Should().BeTrue();
-            Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Ladder(Direction.South))).
+            Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Ladder(CompassDirection.South))).
                 Should().BeTrue();
             Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Impassable())).
                 Should().BeFalse();
@@ -104,7 +104,7 @@ namespace SusaninPathFindingTests.Graph
 
             Tester.GetStepCost(new Node(1, 0, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable()), new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable())).
                 Should().BeApproximately(5, FloatPrec);
-            Tester.GetStepCost(new Node(1, 0, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable()), new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Ladder(Direction.South))).
+            Tester.GetStepCost(new Node(1, 0, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable()), new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Ladder(CompassDirection.South))).
                 Should().BeApproximately(6, FloatPrec);
             Tester.GetStepCost(new Node(0, 0, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable()), new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable())).
                 Should().BeApproximately(7, FloatPrec);
@@ -127,7 +127,7 @@ namespace SusaninPathFindingTests.Graph
         {
             Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Passable())).
                 Should().BeTrue();
-            Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Ladder(Direction.South))).
+            Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Ladder(CompassDirection.South))).
                 Should().BeTrue();
             Tester.CanPass(new Node(1, 1, 0, ((PolygonGrid3D)Tester.Nodes).Polygon, Tester.Nodes, new Impassable())).
                 Should().BeFalse();

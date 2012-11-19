@@ -31,7 +31,7 @@ namespace SusaninPathFindingTests.Graph
             ((PolygonGrid3D)_graph)[3, 2, 0].Info = new Impassable();
             ((PolygonGrid3D)_graph)[5, 2, 0].Info = new Impassable();
 
-            ((PolygonGrid3D)_graph)[1, 3, 0].Info = new Ladder(Direction.East);
+            ((PolygonGrid3D)_graph)[1, 3, 0].Info = new Ladder(CompassDirection.East);
             ((PolygonGrid3D)_graph)[2, 3, 0].Info = new Impassable();
             ((PolygonGrid3D)_graph)[3, 3, 0].Info = new Impassable();
             ((PolygonGrid3D)_graph)[5, 3, 0].Info = new Impassable();
@@ -45,7 +45,7 @@ namespace SusaninPathFindingTests.Graph
             ((PolygonGrid3D)_graph)[3, 2, 1].Info = new Passable();
             ((PolygonGrid3D)_graph)[5, 2, 1].Info = new Passable();
 
-            ((PolygonGrid3D)_graph)[2, 3, 1].Info = new Ladder(Direction.East);
+            ((PolygonGrid3D)_graph)[2, 3, 1].Info = new Ladder(CompassDirection.East);
             ((PolygonGrid3D)_graph)[3, 3, 1].Info = new Passable();
             ((PolygonGrid3D)_graph)[5, 3, 1].Info = new Passable();
             Tester = new AStar<Node>(_graph);

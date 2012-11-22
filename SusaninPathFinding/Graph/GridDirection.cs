@@ -271,9 +271,12 @@ namespace SusaninPathFinding.Graph
         {
             Vector3 v = new Vector3(1, 0, 0);
 
-            v.Pitch(((int)pitch));
-            v.Yaw(((int)yaw));
-            v.Roll(((int)roll));
+            v.Pitch((pitch));
+            v.Yaw((yaw));
+            v.Roll((roll));
+            v.X = Math.Round(v.X);
+            v.Y = Math.Round(v.Y);
+            v.Z = Math.Round(v.Z);
 
             return Directions(v);
         }

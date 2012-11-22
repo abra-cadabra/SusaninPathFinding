@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using FluentAssertions;
+using SusaninPathFinding;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph;
 using SusaninPathFindingTests.Geometry;
@@ -125,8 +126,9 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void FromRotatorTest()
         {
+            Angle a = new Angle(1, 90, 0, 0);
             Tester.FromRotator(0, 0, 0).Should().Be(CompassDirection.East);
-            Tester.FromRotator(0, 0, 2).Should().Be(CompassDirection.North);
+            Tester.FromRotator(0, 0, a).Should().Be(CompassDirection.North);
         }
     }
 }

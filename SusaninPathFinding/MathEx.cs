@@ -35,5 +35,7 @@ namespace SusaninPathFinding
         {
             return (Math.Abs(double1 - double2) <= epsilon);
         }
+
+
     }
 }

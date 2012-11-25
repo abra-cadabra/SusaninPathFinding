@@ -126,9 +126,16 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void FromRotatorTest()
         {
-            Angle a = new Angle(1, 90, 0, 0);
-            Tester.FromRotator(0, 0, 0).Should().Be(CompassDirection.East);
-            Tester.FromRotator(0, 0, a).Should().Be(CompassDirection.North);
+            Angle a = new Angle(1, 270, 0, 0);
+            Tester.Rotation = new Rotator(0, 0, 0);
+            Tester.Value.Should().Be(CompassDirection.East);
+
+            Tester.Rotation = new Rotator(45, 45, 90);
+            Tester.Value.Should().Be(CompassDirection.NorthLower);
+            //GridDirection.Offsets[(int) Tester.FromRotator(0, 0, 270)].X.Should().BeApproximately(0, IntegerPrec);
+            //GridDirection.Offsets[(int) Tester.FromRotator(0, 0, 270)].Y.Should().BeApproximately(1, IntegerPrec);
+            //GridDirection.Offsets[(int)Tester.FromRotator(0, 0, 270)].Z.Should().BeApproximately(0, IntegerPrec);
+
         }
     }
 }

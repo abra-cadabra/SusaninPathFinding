@@ -6,6 +6,7 @@ using System.Globalization;
 using System.Linq;
 using System.Text;
 using SusaninPathFinding.Geometry;
+using SusaninPathFinding.Graph;
 
 namespace SusaninPathFinding.Collections
 {
@@ -36,7 +37,7 @@ namespace SusaninPathFinding.Collections
     /// <see cref="ArrayEx{T}.CopyFrom"/> copies elements from a specified one-dimensional <see
     /// cref="Array"/> or <see cref="IEnumerable{T}"/> collection to the <b>ArrayEx</b> collection.
     /// </item><item>
-    /// <see cref="ArrayEx{T}.Empty"/> returns an immutable empty collection that is cached for
+    /// <see cref="Empty"/> returns an immutable empty collection that is cached for
     /// repeated access.
     /// </item><item>
     /// <see cref="ArrayEx{T}.Equals"/> compares two collections with identical element types for
@@ -2681,5 +2682,215 @@ namespace SusaninPathFinding.Collections
 
         #endregion
         #endregion
+
+
+
+
+
+
+
+
+
+
+
+    //    #region Fields
+
+    //    private readonly bool _readOnlyFlag;
+
+    //    #endregion
+
+    //    #region Properties
+
+    //    public int Rank { get; set; }
+
+    //    public int[] Lengths { get; set; }
+
+    //    private T[] InnerArray { get; set; }
+
+    //    #endregion
+
+    //    #region Constructors
+
+    //    public ArrayEx(ArrayEx<T> array)
+    //    {
+    //        if (array == null)
+    //            throw new ArgumentNullException("array");
+
+    //        Lengths = new int[array.Rank];
+    //        Array.Copy(array.Lengths, Lengths, array.Rank);
+
+    //        InnerArray = new T[array.Count];
+    //        Array.Copy(array.InnerArray, InnerArray, array.Count);
+    //    }
+        
+    //    public ArrayEx(params int[] lengths)
+    //    {
+    //        int count = CheckLengths(lengths);
+
+    //        Lengths = new int[lengths.Length];
+    //        Array.Copy(lengths, Lengths, Rank);
+    //        InnerArray = new T[count];
+    //    }
+    //    #endregion
+
+    //    #region Functions
+
+    //    protected int CheckLengths(params int[] lengths)
+    //    {
+    //        if (lengths == null || lengths.Length == 0)
+    //            throw new ArgumentNullOrEmptyException("lengths");
+
+    //        int count = 1;
+
+    //        foreach (int length in lengths)
+    //        {
+    //            if (length < 0)
+    //                throw new ArgumentOutOfRangeException(
+    //                    "lengths", lengths, Strings.ArgumentContainsNegative);
+
+    //            count *= length;
+    //        }
+
+    //        return count;
+    //    }
+
+    //    #endregion
+
+    //    #region ICloneable implementation
+
+    //    public object Clone()
+    //    {
+    //        return new ArrayEx<T>(this);
+    //    }
+
+    //    #endregion
+
+    //    #region IList implementation
+
+    //    public int Add(object value)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    public void Clear()
+    //    {
+    //        if (_readOnlyFlag)
+    //            throw new NotSupportedException(Strings.CollectionReadOnly);
+
+    //        Array.Clear(InnerArray, 0, Count);
+    //    }
+
+    //    public bool Contains(object value)
+    //    {
+    //        return (Array.IndexOf<T>(InnerArray, (T)value) >= 0);
+    //    }
+
+    //    public int IndexOf(object value)
+    //    {
+    //        return Array.IndexOf<T>(InnerArray, (T)value);
+    //    }
+
+    //    public void Insert(int index, object value)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    public bool IsFixedSize
+    //    {
+    //        get { return true; }
+    //    }
+
+    //    public bool IsReadOnly
+    //    {
+    //        get { return _readOnlyFlag; }
+    //    }
+
+    //    public void Remove(object value)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    public void RemoveAt(int index)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    public object this[int index]
+    //    {
+    //        get { return InnerArray[index]; }
+    //        set { InnerArray[index] = (T)value; }
+    //    }
+
+    //    public void CopyTo(Array array, int index)
+    //    {
+    //        InnerArray.CopyTo(array, index);
+    //    }
+
+    //    public int Count
+    //    {
+    //        get { return InnerArray.Length; }
+    //    }
+
+    //    public bool IsSynchronized
+    //    {
+    //        get { return false; }
+    //    }
+
+    //    public object SyncRoot
+    //    {
+    //        get { return InnerArray.SyncRoot; }
+    //    }
+
+    //    public IEnumerator GetEnumerator()
+    //    {
+    //        return InnerArray.GetEnumerator();
+    //    }
+
+    //    #endregion
+
+    //    #region IList<T> implementation
+
+    //    public int IndexOf(T item)
+    //    {
+    //        return Array.IndexOf<T>(InnerArray, item);
+    //    }
+
+    //    public void Insert(int index, T item)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    T IList<T>.this[int index]
+    //    {
+    //        get { return InnerArray[index]; }
+    //        set { InnerArray[index] = value; }
+    //    }
+
+    //    public void Add(T item)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    public bool Contains(T item)
+    //    {
+    //        return (Array.IndexOf<T>(InnerArray, item) >= 0);
+    //    }
+
+    //    public void CopyTo(T[] array, int arrayIndex)
+    //    {
+    //        InnerArray.CopyTo(array, arrayIndex);
+    //    }
+
+    //    public bool Remove(T item)
+    //    {
+    //        throw new NotSupportedException(Strings.CollectionFixedSize);
+    //    }
+
+    //    IEnumerator<T> IEnumerable<T>.GetEnumerator()
+    //    {
+    //        return ((IEnumerable<T>)InnerArray).GetEnumerator();
+    //    }
+
+    //    #endregion
     }
 }

@@ -309,9 +309,9 @@ namespace SusaninPathFinding.Graph
         public Vector3 GetWorldLocation(Vector3 node)
         {
             return new Vector3(
-                node.X * Polygon.Bounds.SizeX,
-                node.Y * Polygon.Bounds.SizeY,
-                node.Z * Polygon.Bounds.SizeZ);
+                (node.X +1.0f/2) * Polygon.Bounds.SizeX,
+                (node.Y +1.0f/2) * Polygon.Bounds.SizeY,
+                (node.Z +1.0f/2) * Polygon.Bounds.SizeZ);
         }
 
         //public Vector3 GetWorldLocation(Vector3 node)

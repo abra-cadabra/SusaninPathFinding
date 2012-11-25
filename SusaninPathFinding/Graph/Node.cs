@@ -5,7 +5,7 @@ using System.Text;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph.NodeInfoTypes;
 
-namespace SusaninPathFinding.Graph.PathFinding
+namespace SusaninPathFinding.Graph
 {
     public class Node : Vector3
     {

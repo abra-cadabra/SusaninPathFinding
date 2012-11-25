@@ -14,5 +14,10 @@ namespace SusaninPathFinding.Graph
         {
             Direction = new GridDirection(dir);
         }
+
+        public Ladder(int pitch, int yaw, int roll)
+        {
+            Direction = new GridDirection(pitch, yaw, roll);
+        }
     }
 }

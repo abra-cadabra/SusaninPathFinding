@@ -26,7 +26,9 @@ namespace SusaninPathFindingUDKInterface
     public class CellInfo
     {
         public float PointType { get; set; }
-        public float Direction { get; set; }
+        public float Pitch { get; set; }
+        public float Yaw { get; set; }
+        public float Roll { get; set; }
         public Vector3 Point { get; set; }
         
 
@@ -34,7 +36,9 @@ namespace SusaninPathFindingUDKInterface
         {
             Point = new Vector3();
             PointType = -1;
-            Direction = -1;
+            Pitch = 0;
+            Yaw = 0;
+            Roll = 0;
         }
 
         public override string ToString()
@@ -61,7 +65,13 @@ namespace SusaninPathFindingUDKInterface
     {
         #region Properties
 
+        /// <summary>
+        /// List of the grids
+        /// </summary>
         public static List<PolygonGrid3D> Grids { get; set; }
+
+
+        public static AStar<Node> AStarPathFinder { get; set; }
 
         #endregion
 
@@ -104,10 +114,12 @@ namespace SusaninPathFindingUDKInterface
             {
                 var cell = new CellInfo();
                 cell.PointType = floatArr[i];
-                cell.Direction = floatArr[i + 1];
-                cell.Point.X = floatArr[i + 2];
-                cell.Point.Y = floatArr[i + 3];
-                cell.Point.Z = floatArr[i + 4];
+                cell.Pitch = floatArr[i + 1];
+                cell.Yaw = floatArr[i + 2];
+                cell.Roll = floatArr[i + 3];
+                cell.Point.X = floatArr[i + 4];
+                cell.Point.Y = floatArr[i + 5];
+                cell.Point.Z = floatArr[i + 6];
                 
                 cells.Add(cell);
             }
@@ -136,7 +148,7 @@ namespace SusaninPathFindingUDKInterface
         [DllExport("DLLCommitCells", CallingConvention = CallingConvention.StdCall)]
         public static bool CommitCells(int mapId, ref UdkDynamicArray wrapper)
         {
-            int valuesCount = wrapper.Count * 5; //*5 => 2 int point type + 3 float from Vector struct
+            int valuesCount = wrapper.Count * 7; //*5 => 2 int point type + 3 float from Vector struct
 
             //var intArr = new int[valuesCount];
             var floatArr = new float[valuesCount];
@@ -146,13 +158,15 @@ namespace SusaninPathFindingUDKInterface
             Marshal.Copy(wrapper.DataPtr, floatArr, 0, valuesCount);
 
             var cell = new CellInfo();
-            for (int i = 0; i < valuesCount; i += 5)
+            for (int i = 0; i < valuesCount; i += 7)
             {
                 cell.PointType = floatArr[i];
-                cell.Direction = floatArr[i + 1];
-                cell.Point.X = floatArr[i + 2];
-                cell.Point.Y = floatArr[i + 3];
-                cell.Point.Z = floatArr[i + 4];
+                cell.Pitch = floatArr[i + 1];
+                cell.Yaw = floatArr[i + 2];
+                cell.Roll = floatArr[i + 3];
+                cell.Point.X = floatArr[i + 4];
+                cell.Point.Y = floatArr[i + 5];
+                cell.Point.Z = floatArr[i + 6];
 
                 if ((cell.Point.X < 0 || cell.Point.X >= Grids[mapId].SizeX)
                  || (cell.Point.Y < 0 || cell.Point.Y >= Grids[mapId].SizeY)
@@ -162,7 +176,13 @@ namespace SusaninPathFindingUDKInterface
                 if (cell.PointType < 0 || cell.PointType > 4)
                     return false;
 
-                if (cell.Direction < 0 || cell.Direction > 27)
+                if (cell.Pitch < 0)
+                    return false;
+
+                if (cell.Yaw < 0)
+                    return false;
+
+                if (cell.Roll < 0)
                     return false;
 
                 Grids[mapId][(int) cell.Point.X, (int) cell.Point.Y, (int) cell.Point.Z].Info =
@@ -179,7 +199,7 @@ namespace SusaninPathFindingUDKInterface
         {
             try
             {
-                int Length = 5 * Grids[mapId].Nodes.Length;
+                int Length = 7 * Grids[mapId].Nodes.Length;
 
                 //var cells = new CellInfo[Grids[mapId].Nodes.Length];
                 var floatArray = new float[Length];
@@ -191,13 +211,18 @@ namespace SusaninPathFindingUDKInterface
                     {
                         for (int k = 0; k < Grids[mapId].SizeX; k++)
                         {
-                            floatArray[index * 5 + 0] = (float)Grids[mapId].Nodes[k, j, i].Info.Type();
+                            floatArray[index + 0] = (float)Grids[mapId].Nodes[k, j, i].Info.Type();
                             if (Grids[mapId].Nodes[k, j, i].Info is Ladder)
-                                floatArray[index * 5 + 1] = (float)((Ladder)Grids[mapId].Nodes[k, j, i].Info).Direction.Value;
-                            floatArray[index * 5 + 2] = (float)Grids[mapId].Nodes[k, j, i].X;
-                            floatArray[index * 5 + 3] = (float)Grids[mapId].Nodes[k, j, i].Y;
-                            floatArray[index * 5 + 4] = (float)Grids[mapId].Nodes[k, j, i].Z;
-                            index++;
+                            {
+                                floatArray[index + 1] = (float)((Ladder)Grids[mapId].Nodes[k, j, i].Info).Direction.Rotation.Pitch;
+                                floatArray[index + 2] = (float)((Ladder)Grids[mapId].Nodes[k, j, i].Info).Direction.Rotation.Yaw;
+                                floatArray[index + 3] = (float)((Ladder)Grids[mapId].Nodes[k, j, i].Info).Direction.Rotation.Roll;
+                            }
+                                
+                            floatArray[index + 4] = (float)Grids[mapId].Nodes[k, j, i].X;
+                            floatArray[index + 5] = (float)Grids[mapId].Nodes[k, j, i].Y;
+                            floatArray[index + 6] = (float)Grids[mapId].Nodes[k, j, i].Z;
+                            index+=7;
                         }
                     }
                 }
@@ -229,6 +254,44 @@ namespace SusaninPathFindingUDKInterface
                 return false;
             }
             
+
+            //wrapper.Count = source.Length;
+            //wrapper.MaxSize = source.Length;
+
+            //ha ha ha here we have managedArray passed from UDK
+            //return 123;//managedArray.Length;
+        }
+
+        [DllExport("DLLFindPath", CallingConvention = CallingConvention.StdCall)]
+        public static int FindPath(int mapId, ref UdkVector from, ref UdkVector to, int senderType)
+        {
+            AStarPathFinder = new AStar<Node>(Grids[mapId]);
+            AStarPathFinder.UseWorldDistance = false;
+            AStarPathFinder.FindBestPath(UdkInterfaceUtility.GraphAgentFromMovementType((MovementType)senderType, Grids[mapId]),
+                                         Grids[mapId][(int) from.X, (int) from.Y, (int) from.Z],
+                                         Grids[mapId][(int) to.X, (int) to.Y, (int) to.Z]);
+            return AStarPathFinder.Nodes.Count;
+        }
+
+
+        [DllExport("DLLFetchPath", CallingConvention = CallingConvention.StdCall)]
+        public static void FetchPath(ref UdkDynamicArray wrapper)
+        {
+
+            int floatsLength = 3 * AStarPathFinder.Nodes.Count;
+
+            var outputArray = new float[floatsLength];
+
+            for (int i = 0; i < AStarPathFinder.Nodes.Count; i++)
+            {
+                outputArray[i * 3 + 0] = (float)AStarPathFinder.Nodes[i].WorldLocation.X;
+                outputArray[i * 3 + 1] = (float)AStarPathFinder.Nodes[i].WorldLocation.Y;
+                outputArray[i * 3 + 2] = (float)AStarPathFinder.Nodes[i].WorldLocation.Z;
+            }
+
+            //wrapper.DataPtr = Marshal.AllocHGlobal(sizeof(float) * floatsLength);
+
+            Marshal.Copy(outputArray, 0, wrapper.DataPtr, floatsLength);
 
             //wrapper.Count = source.Length;
             //wrapper.MaxSize = source.Length;

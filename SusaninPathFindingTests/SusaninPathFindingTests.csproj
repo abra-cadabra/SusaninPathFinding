@@ -69,6 +69,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Collections\ArrayExTest.cs" />
     <Compile Include="Geometry\BoxTest.cs" />
     <Compile Include="Geometry\Cell3DTest.cs" />
     <Compile Include="Geometry\Line3DTest.cs" />

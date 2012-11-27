@@ -158,6 +158,7 @@ namespace SusaninPathFindingUDKInterface
             Marshal.Copy(wrapper.DataPtr, floatArr, 0, valuesCount);
 
             var cell = new CellInfo();
+            // Checking the commited data for consistency
             for (int i = 0; i < valuesCount; i += 7)
             {
                 cell.PointType = floatArr[i];
@@ -184,10 +185,21 @@ namespace SusaninPathFindingUDKInterface
 
                 if (cell.Roll < 0)
                     return false;
+            }
 
-                Grids[mapId][(int) cell.Point.X, (int) cell.Point.Y, (int) cell.Point.Z].Info =
+            // Commiting data
+            for (int i = 0; i < valuesCount; i += 7)
+            {
+                cell.PointType = floatArr[i];
+                cell.Pitch = floatArr[i + 1];
+                cell.Yaw = floatArr[i + 2];
+                cell.Roll = floatArr[i + 3];
+                cell.Point.X = floatArr[i + 4];
+                cell.Point.Y = floatArr[i + 5];
+                cell.Point.Z = floatArr[i + 6];
+
+                Grids[mapId][(int)cell.Point.X, (int)cell.Point.Y, (int)cell.Point.Z].Info =
                     UdkInterfaceUtility.NodeInfoFromCellInfo(cell);
-                   // NodeInfo.Factory((CellType)cell.PointType);
             }
 
             return true;
@@ -199,7 +211,7 @@ namespace SusaninPathFindingUDKInterface
         {
             try
             {
-                int Length = 7 * Grids[mapId].Nodes.Length;
+                int Length = 7 * Grids[mapId].Nodes.Count;
 
                 //var cells = new CellInfo[Grids[mapId].Nodes.Length];
                 var floatArray = new float[Length];

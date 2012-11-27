@@ -79,9 +79,10 @@ namespace SusaninPathFinding.Graph
                 Vector3 v = new Vector3(Offsets[(int) value]);
                 v.Normalize();
 
-                Rotation.Pitch = (int)new Angle(v.X).InDegrees;
-                Rotation.Yaw = (int)new Angle(-v.Y).InDegrees;
-                Rotation.Roll = (int)new Angle(v.Z).InDegrees;
+
+                Rotation.Pitch = (int)v.Angle(new Vector3(1, 0, 0));
+                //Rotation.Yaw = (int)new Angle(-v.Y).InDegrees;
+                //Rotation.Roll = (int)new Angle(v.Z).InDegrees;
             }
         }
 

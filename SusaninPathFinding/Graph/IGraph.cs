@@ -14,7 +14,7 @@ namespace SusaninPathFinding.Graph
     /// <remarks><para>
     /// <b>IGraph2D</b> provides a graph suitable for pathfinding and other generic graph
     /// algorithms. All nodes map to locations and regions in two-dimensional space. Connected nodes
-    /// can be navigated by mobile objects, typically represented by an <see cref="IGraphAgent{T}"/>
+    /// can be navigated by mobile objects, typically represented by an <see cref="IMovementAlgorithm{T}"/>
     /// instance.
     /// </para><para>
     /// <b>IGraph2D</b> makes no assumptions about the underlying topology. Representable topologies
@@ -119,7 +119,7 @@ namespace SusaninPathFinding.Graph
         /// than the distance between any two nodes from the same sequence.
         /// </item><item>
         /// The distance between two valid nodes is always equal to or less than the result of <see
-        /// cref="IGraphAgent{T}.GetStepCost"/> for the same two nodes.
+        /// cref="IMovementAlgorithm{T}.GetStepCost"/> for the same two nodes.
         /// </item><item>
         /// The distance between two valid nodes remains unchanged if the arguments are reversed.
         /// </item><item>
@@ -200,7 +200,7 @@ namespace SusaninPathFinding.Graph
         /// part of the <see cref="IGraph2D{TNode}"/>.
         /// </para><para>
         /// <b>GetNeighbors</b> returns the complete set of target nodes for which <see
-        /// cref="IGraphAgent{T}.CanMakeStep"/> could possibly succeed, assuming the specified
+        /// cref="IMovementAlgorithm{T}.CanMakeStep"/> could possibly succeed, assuming the specified
         /// <paramref name="node"/> is the source node.
         /// </para><para>
         /// <b>GetNeighbors</b> should throw an <see cref="ArgumentException"/> only if the
@@ -211,14 +211,18 @@ namespace SusaninPathFinding.Graph
 
         #endregion
 
+        //IList<TNode> GetConnections(TNode node);
+
+        //TNode SetConnection(TNode from, TNode to);
+
         #region GetNeighbors(TNode, IGraphAgent<TNode>)
 
         /// <summary>
-        /// Returns all direct neighbors of the specified <see cref="IGraph2D{TNode}"/> node which can be passed by <see cref="IGraphAgent{TNode}"/> agent.</summary>
+        /// Returns all direct neighbors of the specified <see cref="IGraph2D{TNode}"/> node which can be passed by <see cref="IMovementAlgorithm{TNode}"/> agent.</summary>
         /// <param name="node">
         /// The <see cref="IGraph2D{TNode}"/> node whose direct neighbors to return.</param>
         /// <param name="agent">
-        /// The <see cref="IGraphAgent{TNode}"/> agent which should be able to pass returned nodes.</param>
+        /// The <see cref="IMovementAlgorithm{TNode}"/> agent which should be able to pass returned nodes.</param>
         /// <returns>
         /// An <see cref="IList{T}"/> containing all valid <see cref="IGraph2D{TNode}"/> nodes that are
         /// directly connected with the specified <paramref name="node"/>. The number of elements is
@@ -231,14 +235,14 @@ namespace SusaninPathFinding.Graph
         /// part of the <see cref="IGraph2D{TNode}"/>.
         /// </para><para>
         /// <b>GetNeighbors</b> returns the complete set of target nodes for which <see
-        /// cref="IGraphAgent{T}.CanMakeStep"/> could possibly succeed, assuming the specified
+        /// cref="IMovementAlgorithm{T}.CanMakeStep"/> could possibly succeed, assuming the specified
         /// <paramref name="node"/> is the source node.
         /// </para><para>
         /// <b>GetNeighbors</b> should throw an <see cref="ArgumentException"/> only if the
         /// specified <paramref name="node"/> is invalid for any possible <see cref="IGraph2D{TNode}"/>
         /// instance, e.g. a null reference.</para></remarks>
         /// 
-        IList<TNode> GetNeighbors(TNode node, IGraphAgent<TNode> agent);
+        IList<TNode> GetNeighbors(TNode node, IMovementAlgorithm<TNode> agent);
 
         #endregion
 

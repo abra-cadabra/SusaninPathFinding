@@ -10,14 +10,14 @@ namespace SusaninPathFinding.Graph
     {
         public GridDirection Direction { get; set; }
 
-        public Ladder(CompassDirection dir)
+        public Ladder(GridDirection dir)
         {
-            Direction = new GridDirection(dir);
+            Direction = dir;
         }
 
         public Ladder(int pitch, int yaw, int roll)
         {
-            Direction = new GridDirection(pitch, yaw, roll);
+            Direction = GridDirectionExtentions.GetDirectionFromRotation(pitch, yaw, roll);
         }
     }
 }

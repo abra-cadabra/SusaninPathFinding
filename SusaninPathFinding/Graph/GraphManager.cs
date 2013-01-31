@@ -34,7 +34,7 @@ namespace SusaninPathFinding
 
         public int Z { get; set; }
 
-        public IGraph<Node> Graph { get; set; }
+        public IGraph<Cell> Graph { get; set; }
 
         //public Dictionary<Vector3, CellInfo> NodeCosts
         //{
@@ -54,7 +54,7 @@ namespace SusaninPathFinding
             //NodeCosts = new Dictionary<Vector3, CellInfo>();
             //Polygon3D polygon = new Polygon3D(92, 128, 4, PolygonOrientation.OnEdge, true);
             Cell3D polygon = new Cell3D(92, 92, 128);
-            PolygonGrid3D grid = new PolygonGrid3D(polygon);
+            Grid3D grid = new Grid3D(polygon);
 
             
             //grid.Size = new Vector3(x, y, z);
@@ -62,7 +62,7 @@ namespace SusaninPathFinding
 
             Graph = grid;
 
-            foreach (Node node in Graph.Nodes)
+            foreach (Cell node in Graph.Nodes)
             {
                 if (node.Z == 0)
                     node.Info = new Passable();
@@ -134,11 +134,11 @@ namespace SusaninPathFinding
             return Graph.GetNearestNode(x, y, z);
         }
 
-        public IList<Node> FindPath(RuningManAgent agent, Vector3 start, Vector3 end)
+        public IList<Cell> FindPath(RuningManAlgorithm agent, Vector3 start, Vector3 end)
         {
-            var aStar = new AStar<Node>(Graph);
+            var aStar = new AStar<Cell>(Graph);
             aStar.UseWorldDistance = true;
-            bool success = aStar.FindBestPath(agent, (Node)start, (Node)end);
+            bool success = aStar.FindBestPath(agent, (Cell)start, (Cell)end);
             return aStar.Nodes;
         }
     }

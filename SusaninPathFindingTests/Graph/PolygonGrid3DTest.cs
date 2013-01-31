@@ -10,11 +10,11 @@ using SusaninPathFindingTests.TDDTests;
 namespace SusaninPathFindingTests.Graph
 {
     [TestFixture]
-    public class PolygonGrid3DTest : TestOf<PolygonGrid3D>
+    public class PolygonGrid3DTest : TestOf<Grid3D>
     {
         public override void InitializeSystemUnderTest()
         {
-            Tester = new PolygonGrid3D(new Cell3D(10, 10, 10));
+            Tester = new Grid3D(new Cell3D(10, 10, 10));
         }
 
         public override void Setup()
@@ -135,9 +135,9 @@ namespace SusaninPathFindingTests.Graph
             }
             Tester[1, 0, 0].Info = new Impassable();
             var list = Tester[1, 1, 0].Neighbors;
-            Node result = list.Find
+            Cell result = list.Find
             (
-                delegate(Node node)
+                delegate(Cell node)
                 {
                     return node == Tester[1, 0, 0];
                 }
@@ -151,13 +151,13 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void GetWorldLocationTest()
         {
-            Tester.GetWorldLocation(Tester[1, 0, 5]).X.Should().Be(10);
-            Tester.GetWorldLocation(Tester[1, 0, 5]).Y.Should().Be(0);
-            Tester.GetWorldLocation(Tester[1, 0, 5]).Z.Should().Be(50);
+            Tester.GetWorldLocation(Tester[1, 0, 5]).X.Should().Be(15);
+            Tester.GetWorldLocation(Tester[1, 0, 5]).Y.Should().Be(5);
+            Tester.GetWorldLocation(Tester[1, 0, 5]).Z.Should().Be(55);
 
-            Tester[1, 0, 5].WorldLocation.X.Should().Be(10);
-            Tester[1, 0, 5].WorldLocation.Y.Should().Be(0);
-            Tester[1, 0, 5].WorldLocation.Z.Should().Be(50);
+            Tester[1, 0, 5].WorldLocation.X.Should().Be(15);
+            Tester[1, 0, 5].WorldLocation.Y.Should().Be(5);
+            Tester[1, 0, 5].WorldLocation.Z.Should().Be(55);
         }
     }
 }

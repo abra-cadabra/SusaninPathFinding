@@ -6,13 +6,13 @@ using System.Text;
 namespace SusaninPathFinding.Graph.PathFinding
 {
     /// <summary>
-    /// Represents the path of an <see cref="IGraphAgent{T}"/> across an <see cref="IGraph2D{TNode}"/>.
+    /// Represents the path of an <see cref="IMovementAlgorithm{T}"/> across an <see cref="IGraph2D{TNode}"/>.
     /// </summary>
     /// <typeparam name="T">
     /// The type of all nodes in the graph. If <typeparamref name="T"/> is a reference type, nodes
     /// cannot be null references.</typeparam>
     /// <remarks><para>
-    /// <b>IGraphPath</b> tracks the path of an <see cref="IGraphAgent{T}"/> instance moving across
+    /// <b>IGraphPath</b> tracks the path of an <see cref="IMovementAlgorithm{T}"/> instance moving across
     /// an <see cref="IGraph2D{TNode}"/> instance.
     /// </para><para>
     /// In addition to the actual movement path as a sequence of <see cref="IGraph2D{TNode}"/> nodes,
@@ -40,7 +40,7 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// <summary>
         /// Gets the total cost of the <see cref="IGraphPath{T}"/>.</summary>
         /// <value>
-        /// The sum of the <see cref="IGraphAgent{T}.GetStepCost"/> results for all <see
+        /// The sum of the <see cref="IMovementAlgorithm{T}.GetStepCost"/> results for all <see
         /// cref="Nodes"/>.</value>
         /// <remarks>
         /// <b>TotalCost</b> may return a non-positive value to signify invalid data.</remarks>

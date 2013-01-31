@@ -18,12 +18,12 @@ namespace SusaninPathFindingTests.Graph
     /// </summary>
     /// <typeparam name="TInfo">Type of </typeparam>
     [TestFixture]
-    public class NodeTest : TestOf<Node>
+    public class CellTest : TestOf<Cell>
     {
 
         public override void InitializeSystemUnderTest()
         {
-            Tester = new Node(10, 7, 0, new Cell3D(92, 92, 128), new PolygonGrid3D(new Cell3D(92, 92, 128)));
+            Tester = new Cell(10, 7, 0, new Cell3D(92, 92, 128), new Grid3D(new Cell3D(92, 92, 128)));
         }
 
         public override void Setup()
@@ -52,7 +52,7 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void ConstructorVector3Test()
         {
-            Tester = new Node(new Vector3(10, 7, 0), new Cell3D(92, 92, 128), new PolygonGrid3D(new Cell3D(92, 92, 128)));
+            Tester = new Cell(new Vector3(10, 7, 0), new Cell3D(92, 92, 128), new Grid3D(new Cell3D(92, 92, 128)));
 
             Tester.Info.Should().NotBeNull();
             Tester.Should().NotBeNull();
@@ -69,9 +69,9 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void WorldLocationTest()
         {
-            Tester.WorldLocation.X.Should().Be(920);
-            Tester.WorldLocation.Y.Should().Be(644);
-            Tester.WorldLocation.Z.Should().Be(0);
+            Tester.WorldLocation.X.Should().Be(966);
+            Tester.WorldLocation.Y.Should().Be(690);
+            Tester.WorldLocation.Z.Should().Be(64);
         }
     }
 }

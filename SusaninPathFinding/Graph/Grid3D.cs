@@ -7,18 +7,19 @@ using System.Linq;
 using System.Text;
 using SusaninPathFinding.Collections;
 using SusaninPathFinding.Geometry;
+using SusaninPathFinding.Graph.NodeInfoTypes;
 using SusaninPathFinding.Graph.PathFinding;
 
 namespace SusaninPathFinding.Graph
 {
-    public class PolygonGrid3D : IGraph<Node>
+    public class Grid3D : IGraph<Cell>
     {
         #region Fields
 
         /// <summary>
         /// Node collection
         /// </summary>
-        //private ArrayEx<Node3D<T>> _nodes;
+        
 
         #endregion
 
@@ -31,7 +32,7 @@ namespace SusaninPathFinding.Graph
         /// <param name="y">Coordinate Y</param>
         /// <param name="z">Coordinate Z</param>
         /// <returns>A node described by three coordinates.</returns>
-        public Node this[int x, int y, int z]
+        public Cell this[int x, int y, int z]
         {
             get
             {
@@ -59,7 +60,7 @@ namespace SusaninPathFinding.Graph
             }
         }
 
-        public Node this[Vector3 v]
+        public Cell this[Vector3 v]
         {
             get
             {
@@ -119,20 +120,27 @@ namespace SusaninPathFinding.Graph
             set;
         }
 
+        public CellEdgeCollection Edges { get; private set; }
+
         #endregion
 
         #region Constructors
 
-        public PolygonGrid3D(int x, int y, int z, Cell3D polygon)
+        public Grid3D(int x, int y, int z, Cell3D polygon)
         {
-            Polygon = polygon;
+            Init(polygon);
             Create(x, y, z);
         }
 
-        public PolygonGrid3D(Cell3D polygon)
+        public Grid3D(Cell3D polygon)
+        {
+            Init(polygon);
+        }
+
+        public void Init(Cell3D polygon)
         {
             Polygon = polygon;
-            //_points = new List<Point3D>();
+            Edges = new CellEdgeCollection();
         }
         #endregion
 
@@ -149,7 +157,7 @@ namespace SusaninPathFinding.Graph
             SizeX = sizeX;
             SizeY = sizeY;
             SizeZ = sizeZ;
-            Nodes = new ArrayEx<Node>(new int[] {SizeX, SizeY, SizeZ});
+            Nodes = new ArrayEx<Cell>(new int[] {SizeX, SizeY, SizeZ});
 
             for (int k = 0; k < SizeZ; k++ )
             {
@@ -158,10 +166,20 @@ namespace SusaninPathFinding.Graph
                     for (int i = 0; i < SizeX; i++)
                     {
                         //_nodes[i, j, k] = new Node3D<T>(i * Polygon.Bounds.SizeX, j * Polygon.Bounds.SizeY, k * Polygon.Bounds.SizeZ, Polygon);
-                        Nodes[i, j, k] = new Node(i, j, k, Polygon, this);
+                        Nodes[i, j, k] = new Cell(i, j, k, Polygon, this);
                     }
                 }
             }
+
+            //for (int i = 0; i < Nodes.Count; i++)
+            //{
+            //    var node = (Cell) Nodes[i];
+            //    var neighbors = ((Cell)Nodes[i]).Neighbors;
+            //    foreach (var n in neighbors)
+            //    {
+            //        Edges.Add(node, n, new CellEdge(new Passable()));
+            //    }
+            //}
         }
         #endregion
 
@@ -179,16 +197,16 @@ namespace SusaninPathFinding.Graph
             get { throw new NotImplementedException(); }
         }
 
-        IEnumerable<Node> IGraph<Node>.Nodes { get { return Nodes; } }
+        IEnumerable<Cell> IGraph<Cell>.Nodes { get { return Nodes; } }
 
 
-        public ArrayEx<Node> Nodes { get; private set; }
+        public ArrayEx<Cell> Nodes { get; private set; }
 
         #endregion
 
         #region Functions
 
-        public bool Contains(Node node)
+        public bool Contains(Cell node)
         {
             return Contains((int)node.X, (int)node.Y, (int)node.Z); //(node.X >= 0 && node.X < _x && node.Y >= 0 && node.Y < _y && node.Z >= 0 && node.Z < _z);
         }
@@ -203,7 +221,7 @@ namespace SusaninPathFinding.Graph
             return Contains((int)node.X, (int)node.Y, (int)node.Z);
         }
 
-        public double GetManhettenDistance(Node source, Node target)
+        public double GetManhettenDistance(Cell source, Cell target)
         {
             Vector3 t = GetWorldLocation(target);
             Vector3 s = GetWorldLocation(source);
@@ -213,32 +231,45 @@ namespace SusaninPathFinding.Graph
 
 
 
-        Node IGraph<Node>.GetNearestNode(Vector3 location)
+        Cell IGraph<Cell>.GetNearestNode(Vector3 location)
         {
             //int x = location.X / Polygon.;
             return this[(int)location.X, (int)location.Y, (int)location.Z];
         }
 
-        public Node GetNearestNode(int x, int y, int z)
+        public Cell GetNearestNode(int x, int y, int z)
         {
             return this[x, y, z];
         }
 
-        public IList<Node> GetNeighbors(Node node)
+        public IList<Cell> GetNeighbors(Cell node)
         {
             return GetNeighbors(node, null);
         }
 
-        public IList<Node> GetNeighbors(Node node, IGraphAgent<Node> agent = null)
+        public IList<Cell> GetNeighbors(Cell node, IMovementAlgorithm<Cell> agent)
         {
-            IList<Node> neighbors = new List<Node>();//GraphDirection.Offsets.Length);
-            if (agent != null && agent.Nodes != this)
-                agent.Nodes = this;
-            for (int i = 1; i < GridDirection.Offsets.Length - 1; i++)
+            if(!(agent is IGridMovementAlgorithm))
+                throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridMovementAlgorithm)));
+
+            return GetNeighbors(node, (IGridMovementAlgorithm) agent);
+        }
+
+        //public IList<Node> GetConnections(Node node)
+        //{
+        //    return Edges[(int)node.X, (int)node.Y, (int)node.Z];
+        //}
+
+        public new IList<Cell> GetNeighbors(Cell node, IGridMovementAlgorithm agent = null)
+        {
+            IList<Cell> neighbors = new List<Cell>();//GraphDirection.Offsets.Length);
+            if (agent != null && agent.Grid != this)
+                agent.Grid = this;
+            for (int i = 1; i < GridDirectionExtentions.Offsets.Length - 1; i++)
             {
-                if(Contains(node + GridDirection.Offsets[i]))
+                if(Contains(node + GridDirectionExtentions.Offsets[i]))
                 {
-                    Node neighbor = this[node + GridDirection.Offsets[i]];
+                    Cell neighbor = this[node + GridDirectionExtentions.Offsets[i]];
                     //if (!Contains(neighbor))
                     //    continue;
 
@@ -252,13 +283,13 @@ namespace SusaninPathFinding.Graph
             return neighbors;
         }
 
-        public Vector3 GetWorldLocation(Node node)
+        public Vector3 GetWorldLocation(Cell node)
         {
             //throw new NotImplementedException();
             return GetWorldLocation((Vector3)node);
         }
 
-        public Vector3[] GetWorldRegion(Node node)
+        public Vector3[] GetWorldRegion(Cell node)
         {
             throw new NotImplementedException();
         }

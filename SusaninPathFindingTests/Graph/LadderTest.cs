@@ -14,7 +14,7 @@ namespace SusaninPathFindingTests.Graph
     {
         public override void InitializeSystemUnderTest()
         {
-            Tester = new Ladder(CompassDirection.NorthEast);
+            Tester = new Ladder(GridDirection.NorthEast);
         }
 
         public override void Setup()
@@ -28,7 +28,7 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void ConstructorTest()
         {
-            Tester.Direction.Value.Should().Be(CompassDirection.NorthEast);
+            Tester.Direction.Should().Be(GridDirection.NorthEast);
         }
     }
 }

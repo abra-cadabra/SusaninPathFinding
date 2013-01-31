@@ -11,23 +11,30 @@ using SusaninPathFinding.Graph.PathFinding;
 
 namespace SusaninPathFinding.Graph
 {
-    public class RuningManAgent : IGraphAgent<Node>
+    public class RuningManAlgorithm : IGridMovementAlgorithm
     {
         //public PolygonGrid3D Nodes { get; set; }
-        public IGraph<Node> Nodes { get; set; }
+        public Grid3D Grid { get; set; }
 
-        public RuningManAgent(PolygonGrid3D nodes)
+        public RuningManAlgorithm(Grid3D nodes)
         {
-            Nodes = nodes;
+            Grid = nodes;
         }
 
-        public bool CanMakeStep(Node source, Node target)
+        public bool CanMakeStep(Cell source, Cell target)
         {
             if (target.X.AlmostEquals(2) && target.Y.AlmostEquals(2) && target.Z.AlmostEquals(0))
             {
                 Debug.Write(target);
             }
-            if (!CanPass(target))
+            CellEdge edge;// = Grid.Edges[source, target];
+            Grid.Edges.TryGetValue(source, target, out edge);
+            //if ((target.X == 1 && target.Y == 4 && target.Z == 0) && (source.X == 1 && source.Y == 3 && source.Z == 0))
+            //{
+            //    Debug.Print("Stop");
+            //}
+
+            if (!CanPass(target) || ((edge != null) && !(edge.Info is Passable || edge.Info is Empty)))
                 return false;
             Vector3 dirOffset, horOffset, wertOffset;
             horOffset = target - source;
@@ -35,19 +42,21 @@ namespace SusaninPathFinding.Graph
             dirOffset = target - source;
             dirOffset.Z = 0;
 
-            if (GridDirection.IsDiagonal(dirOffset))
+            
+
+            if (GridDirectionExtentions.IsDiagonal(dirOffset))
             {
                 horOffset.Y = 0;
                 wertOffset.X = 0;
 
                 bool hor;
-                if(((PolygonGrid3D)Nodes).Contains(source + horOffset))
+                if(((Grid3D)Grid).Contains(source + horOffset))
                 {
-                    if(((PolygonGrid3D) Nodes)[source + horOffset].Info is Empty)
+                    if(((Grid3D) Grid)[source + horOffset].Info is Empty)
                     {
                         Debug.Write(target + "is empty");
                     }
-                    hor = ((PolygonGrid3D) Nodes)[source + horOffset].Info is Passable;
+                    hor = ((Grid3D) Grid)[source + horOffset].Info is Passable;
                 }
                 else
                 {
@@ -56,13 +65,13 @@ namespace SusaninPathFinding.Graph
 
 
                 bool wert;
-                if (((PolygonGrid3D)Nodes).Contains(source + wertOffset))
+                if (((Grid3D)Grid).Contains(source + wertOffset))
                 {
-                    if (((PolygonGrid3D)Nodes)[source + wertOffset].Info is Empty)
+                    if (((Grid3D)Grid)[source + wertOffset].Info is Empty)
                     {
                         Debug.Write(target + "is empty");
                     }
-                    wert = ((PolygonGrid3D)Nodes)[source + wertOffset].Info is Passable;
+                    wert = ((Grid3D)Grid)[source + wertOffset].Info is Passable;
                 }
                 else
                 {
@@ -75,11 +84,12 @@ namespace SusaninPathFinding.Graph
                 }
                 //return (hor && wert && CanMakeStep(source, target));
             }
-            else
-            {
-                if (!(CanPass(target)))
-                    return false;
-            }
+            //else
+            //{
+            //    if (!(CanPass(target)))
+            //        return false;
+            //}
+            
 
             if (target.Info is Ladder)
             {
@@ -87,16 +97,16 @@ namespace SusaninPathFinding.Graph
                 p.Z = 0;
                 if (!(source.Info is Ladder))
                 {
-                    bool invalidDirection1 = (GridDirection.Directions(p) != ((Ladder) target.Info).Direction.Value);
-                    bool invalidDirection2 = (GridDirection.Directions(p) != ((Ladder) target.Info).Direction.Opposite());
-                    if (target.Z != source.Z || invalidDirection1 && invalidDirection2)
+                    //bool invalidDirection1 = (p.GetDirection() != ((Ladder) target.Info).Direction);
+                    //bool invalidDirection2 = (p.GetDirection() != ((Ladder) target.Info).Direction.Opposite());
+                    if (target.Z != source.Z || !p.AsDirection().IsColinear(((Ladder)target.Info).Direction))
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    if (GridDirection.Directions(p) != ((Ladder)target.Info).Direction.Value && GridDirection.Directions(p) != ((Ladder)target.Info).Direction.Opposite())
+                    if (p.AsDirection() != ((Ladder)target.Info).Direction && p.AsDirection() != ((Ladder)target.Info).Direction.Opposite())
                     {
                         return false;
                     }
@@ -108,17 +118,27 @@ namespace SusaninPathFinding.Graph
                 {
                     return false;
                 }
+
+                if (source.Info is Ladder)
+                {
+                    Vector3 p = (target - source);
+                    if (!p.AsDirection().IsColinear(((Ladder)source.Info).Direction))
+                    {
+                        return false;
+                    }
+                }
+
             }
             return true;
         }
 
 
-        public bool CanOccupy(Node target)
+        public bool CanOccupy(Cell target)
         {
             return (target.Info is Impassable && target.Info is Empty);
         }
 
-        public double GetStepCost(Node source, Node target)
+        public double GetStepCost(Cell source, Cell target)
         {
             int cost;
             cost = 5;
@@ -140,14 +160,14 @@ namespace SusaninPathFinding.Graph
             //        cost = 5;
             //        break;
             //}
-            if(GridDirection.IsDiagonal(target - source))
+            if(GridDirectionExtentions.IsDiagonal(target - source))
             {
                 cost = (int)(cost * 1.4);
             }
             return cost;
         }
 
-        public bool IsNearTarget(Node source, Node target, double distance)
+        public bool IsNearTarget(Cell source, Cell target, double distance)
         {
             return (distance.AlmostEquals(0, 0));
         }
@@ -164,9 +184,11 @@ namespace SusaninPathFinding.Graph
         /// </summary>
         /// <param name="target">Target node</param>
         /// <returns>True, if the agent can pass through the node</returns>
-        public bool CanPass(Node target)
+        public bool CanPass(Cell target)
         {
             return (target.Info is Passable || target.Info is Ladder);
         }
+
+        
     }
 }

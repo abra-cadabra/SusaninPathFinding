@@ -80,12 +80,13 @@
     <Compile Include="Geometry\Vector2Test.cs" />
     <Compile Include="Geometry\Vector3Test.cs" />
     <Compile Include="Graph\AStarTest.cs" />
+    <Compile Include="Graph\CellEdgeCollectionTest.cs" />
     <Compile Include="Graph\CellInfoTest.cs" />
     <Compile Include="Graph\GridDirectionTest.cs" />
     <Compile Include="Graph\NodeTest.cs" />
     <Compile Include="Graph\LadderTest.cs" />
     <Compile Include="Graph\PolygonGrid3DTest.cs" />
-    <Compile Include="Graph\RuningManAgentTest.cs" />
+    <Compile Include="Graph\RuningManAlgorithmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TDDTestSpecification.cs" />
     <Compile Include="TestOf.cs" />

@@ -430,6 +430,15 @@ namespace SusaninPathFinding {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Arguments must not be equal..
+        /// </summary>
+        public static string ArgumentsEqual {
+            get {
+                return ResourceManager.GetString("ArgumentsEqual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Argument specifies invalid {0}..
         /// </summary>
         public static string ArgumentSpecifiesInvalid {
@@ -534,6 +543,15 @@ namespace SusaninPathFinding {
         public static string ButtonYes {
             get {
                 return ResourceManager.GetString("ButtonYes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cells must be a neighbors..
+        /// </summary>
+        public static string CellsNotNeighbors {
+            get {
+                return ResourceManager.GetString("CellsNotNeighbors", resourceCulture);
             }
         }
         

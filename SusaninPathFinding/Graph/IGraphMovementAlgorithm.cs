@@ -17,16 +17,17 @@ namespace SusaninPathFinding.Graph
     /// algorithms, such as <see cref="AStar{T}"/> and <see cref="Coverage{T}"/>, with
     /// application-specific graphs and agents.</remarks>
 
-    public interface IGraphAgent<T>
+    public interface IMovementAlgorithm<T>
     {
-        IGraph<T> Nodes { get; set; }
+        //IGraph<T> Nodes { get; set; }
+
         #region RelaxedRange
 
         /// <summary>
-        /// Indicates whether the <see cref="IGraphAgent{T}"/> can enter <see cref="IGraph2D{TNode}"/>
+        /// Indicates whether the <see cref="IMovementAlgorithm{T}"/> can enter <see cref="IGraph2D{TNode}"/>
         /// nodes that exceed the maximum path cost for a movement.</summary>
         /// <value>
-        /// <c>true</c> if the <see cref="IGraphAgent{T}"/> may end a movement on an <see
+        /// <c>true</c> if the <see cref="IMovementAlgorithm{T}"/> may end a movement on an <see
         /// cref="IGraph2D{TNode}"/> node that exceeds the maximum path cost for the movement;
         /// otherwise, <c>false</c>.</value>
         /// <remarks><para>
@@ -36,7 +37,7 @@ namespace SusaninPathFinding.Graph
         /// </para><para>
         /// If <b>RelaxedRange</b> is <c>false</c>, the maximum path cost for a movement is the
         /// absolute upper limit that determines all reachable nodes. The <see
-        /// cref="IGraphAgent{T}"/> will not enter any node whose total path cost exceeds this
+        /// cref="IMovementAlgorithm{T}"/> will not enter any node whose total path cost exceeds this
         /// limit, as determined by <see cref="GetStepCost"/>.
         /// </para><para>
         /// If <b>RelaxedRange</b> is <c>true</c>, the <b>IGraphAgent</b> can enter any node as the
@@ -51,7 +52,7 @@ namespace SusaninPathFinding.Graph
         #region CanMakeStep
 
         /// <summary>
-        /// Determines whether the <see cref="IGraphAgent{T}"/> can move from one specified <see
+        /// Determines whether the <see cref="IMovementAlgorithm{T}"/> can move from one specified <see
         /// cref="IGraph2D{TNode}"/> node to another neighboring node.</summary>
         /// <param name="source">
         /// The <see cref="IGraph2D{TNode}"/> node where the move starts.</param>
@@ -59,13 +60,13 @@ namespace SusaninPathFinding.Graph
         /// The <see cref="IGraph2D{TNode}"/> node where the move ends. This node must be a neighbor of
         /// <paramref name="source"/>.</param>
         /// <returns>
-        /// <c>true</c> if the <see cref="IGraphAgent{T}"/> can move from <paramref name="source"/>
+        /// <c>true</c> if the <see cref="IMovementAlgorithm{T}"/> can move from <paramref name="source"/>
         /// to <paramref name="target"/>; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="source"/> and <paramref name="target"/> are not valid neighboring <see
         /// cref="IGraph2D{TNode}"/> nodes.</exception>
         /// <remarks><para>
-        /// <b>CanMakeStep</b> should only consider whether the <see cref="IGraphAgent{T}"/> could
+        /// <b>CanMakeStep</b> should only consider whether the <see cref="IMovementAlgorithm{T}"/> could
         /// move to the specified <paramref name="target"/> node <em>if</em> it were already placed
         /// on the specified <paramref name="source"/> node.
         /// </para><para>
@@ -84,17 +85,17 @@ namespace SusaninPathFinding.Graph
         #region CanOccupy
 
         /// <summary>
-        /// Determines whether the <see cref="IGraphAgent{T}"/> can permanently occupy the specified
+        /// Determines whether the <see cref="IMovementAlgorithm{T}"/> can permanently occupy the specified
         /// <see cref="IGraph2D{TNode}"/> node.</summary>
         /// <param name="target">
         /// The <see cref="IGraph2D{TNode}"/> node to occupy.</param>
         /// <returns>
-        /// <c>true</c> if the <see cref="IGraphAgent{T}"/> can permanently occupy <paramref
+        /// <c>true</c> if the <see cref="IMovementAlgorithm{T}"/> can permanently occupy <paramref
         /// name="target"/>; otherwise, <c>false</c>.</returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="target"/> is not a valid <see cref="IGraph2D{TNode}"/> node.</exception>
         /// <remarks><para>
-        /// <b>CanOccupy</b> should consider whether the <see cref="IGraphAgent{T}"/> could
+        /// <b>CanOccupy</b> should consider whether the <see cref="IMovementAlgorithm{T}"/> could
         /// <em>permanently</em> occupy the specified <paramref name="target"/> node. Assuming that
         /// the <b>IGraphAgent</b> has already reached <paramref name="target"/>, <b>CanOccupy</b>
         /// determines whether movement could stop at this node.
@@ -116,7 +117,7 @@ namespace SusaninPathFinding.Graph
         #region GetStepCost
 
         /// <summary>
-        /// Returns the cost for moving the <see cref="IGraphAgent{T}"/> from one specified <see
+        /// Returns the cost for moving the <see cref="IMovementAlgorithm{T}"/> from one specified <see
         /// cref="IGraph2D{TNode}"/> node to another neighboring node.</summary>
         /// <param name="source">
         /// The <see cref="IGraph2D{TNode}"/> node where the move starts.</param>
@@ -124,14 +125,14 @@ namespace SusaninPathFinding.Graph
         /// The <see cref="IGraph2D{TNode}"/> node where the move ends. This node must be a neighbor of
         /// <paramref name="source"/>.</param>
         /// <returns>
-        /// The cost for moving the <see cref="IGraphAgent{T}"/> from <paramref name="source"/> to
+        /// The cost for moving the <see cref="IMovementAlgorithm{T}"/> from <paramref name="source"/> to
         /// <paramref name="target"/>. This value cannot be less than the result of <see
         /// cref="IGraph2D{TNode}.GetDistance"/> for the two nodes.</returns>
         /// <exception cref="ArgumentException">
         /// <paramref name="source"/> and <paramref name="target"/> are not valid neighboring <see
         /// cref="IGraph2D{TNode}"/> nodes.</exception>
         /// <remarks><para>
-        /// <b>GetStepCost</b> should not attempt to verify that the <see cref="IGraphAgent{T}"/>
+        /// <b>GetStepCost</b> should not attempt to verify that the <see cref="IMovementAlgorithm{T}"/>
         /// can actually move from the specified <paramref name="source"/> node to the specified
         /// <paramref name="target"/> node. Clients should call <see cref="CanMakeStep"/> to ensure
         /// this condition.
@@ -157,7 +158,7 @@ namespace SusaninPathFinding.Graph
         /// <param name="distance">
         /// The distance between <paramref name="source"/> and <paramref name="target"/>, according
         /// to <see cref="IGraph2D{TNode}.GetDistance"/>. This argument may be negative to indicate that
-        /// the <see cref="IGraphAgent{T}"/> should calculate the distance.</param>
+        /// the <see cref="IMovementAlgorithm{T}"/> should calculate the distance.</param>
         /// <returns>
         /// <c>true</c> if a movement towards <paramref name="target"/> should be considered
         /// complete when <paramref name="source"/> is reached; otherwise, <c>false</c>.</returns>
@@ -181,13 +182,13 @@ namespace SusaninPathFinding.Graph
         #region CanPass
 
         /// <summary>
-        /// Determins whether the <see cref="IGraphAgent{T}"/> can pass through <see
+        /// Determins whether the <see cref="IMovementAlgorithm{T}"/> can pass through <see
         /// cref="IGraph{T}"/> node at all.</summary>
         /// <param name="target">
         /// The <see cref="IGraph{T}"/> node which is under test.
         /// </param>
         /// <returns>
-        /// <c>true</c> if node is passable by the <see cref="IGraphAgent{T}"/>;
+        /// <c>true</c> if node is passable by the <see cref="IMovementAlgorithm{T}"/>;
         /// otherwise, <c>false</c>.
         /// </returns>
         bool CanPass(T target);

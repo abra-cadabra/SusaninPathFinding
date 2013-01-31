@@ -17,102 +17,97 @@ namespace SusaninPathFindingTests.Graph
 {
     
     [TestFixture]
-    public class GridDirectionTest : TestOf<GridDirection>
+    public class GridDirectionTest
     {
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new GridDirection(CompassDirection.NorthWest);
-        }
+        public GridDirection Tester;
 
-        public override void Setup()
+        [SetUp]
+        public void Setup()
         {
-        }
-
-        public override void CleenUp()
-        {
+            Tester = GridDirection.NorthWest;
         }
 
         [Test]
         public void ConstructorTest()
         {
-            Tester.Value.Should().Be(CompassDirection.NorthWest);
+            Tester.Should().Be(GridDirection.NorthWest);
         }
 
         [Test]
         public void IsDiagonalTest()
         {
             Tester.IsDiagonal().Should().BeTrue();
-            Tester.Value = CompassDirection.West;
+            Tester = GridDirection.West;
             Tester.IsDiagonal().Should().BeFalse();
         }
 
         [Test]
         public void StaticIsDiagonalDirTest()
         {
-            
-            GridDirection.IsDiagonal(CompassDirection.NorthEast).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthEast).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthWest).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.NorthWest).Should().BeTrue();
 
-            GridDirection.IsDiagonal(CompassDirection.NorthLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.NorthEastLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.EastLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthEastLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthWestLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.WestLower).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.NorthWestLower).Should().BeTrue();
+            GridDirection.NorthEast.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthEast.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthWest.IsDiagonal().Should().BeTrue();
+            GridDirection.NorthWest.IsDiagonal().Should().BeTrue();
 
-            GridDirection.IsDiagonal(CompassDirection.NorthRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.NorthEastRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.EastRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthEastRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.SouthWestRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.WestRaise).Should().BeTrue();
-            GridDirection.IsDiagonal(CompassDirection.NorthWestRaise).Should().BeTrue();
+            GridDirection.NorthLower.IsDiagonal().Should().BeTrue();
+            GridDirection.NorthEastLower.IsDiagonal().Should().BeTrue();
+            GridDirection.EastLower.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthEastLower.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthLower.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthWestLower.IsDiagonal().Should().BeTrue();
+            GridDirection.WestLower.IsDiagonal().Should().BeTrue();
+            GridDirection.NorthWestLower.IsDiagonal().Should().BeTrue();
 
-            GridDirection.IsDiagonal(CompassDirection.West).Should().BeFalse();
-            GridDirection.IsDiagonal(CompassDirection.South).Should().BeFalse();
-            GridDirection.IsDiagonal(CompassDirection.East).Should().BeFalse();
-            GridDirection.IsDiagonal(CompassDirection.North).Should().BeFalse();
-            GridDirection.IsDiagonal(CompassDirection.Raise).Should().BeFalse();
-            GridDirection.IsDiagonal(CompassDirection.Lower).Should().BeFalse();
+            GridDirection.NorthRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.NorthEastRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.EastRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthEastRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.SouthWestRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.WestRaise.IsDiagonal().Should().BeTrue();
+            GridDirection.NorthWestRaise.IsDiagonal().Should().BeTrue();
+
+            GridDirection.West.IsDiagonal().Should().BeFalse();
+            GridDirection.South.IsDiagonal().Should().BeFalse();
+            GridDirection.East.IsDiagonal().Should().BeFalse();
+            GridDirection.North.IsDiagonal().Should().BeFalse();
+            GridDirection.Raise.IsDiagonal().Should().BeFalse();
+            GridDirection.Lower.IsDiagonal().Should().BeFalse();
         }
 
         [Test]
         public void StaticIsDiagonalOffsetTest()
         {
-            GridDirection.IsDiagonal(new Vector3(1, -1, 0)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, 1, 0)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, 1, 0)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, -1, 0)).Should().BeTrue();
+            new Vector3(1, -1, 0).IsDiagonal().Should().BeTrue();
+            new Vector3(1, 1, 0).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, 1, 0).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, -1, 0).IsDiagonal().Should().BeTrue();
 
-            GridDirection.IsDiagonal(new Vector3(0, -1, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, -1, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, 0, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, 1, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(0, 1, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, 1, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, 0, -1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, -1, -1)).Should().BeTrue();
+            new Vector3(0, -1, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(1, -1, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(1, 0, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(1, 1, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(0, 1, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, 1, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, 0, -1).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, -1, -1).IsDiagonal().Should().BeTrue();
 
-            GridDirection.IsDiagonal(new Vector3(0, -1, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, -1, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, 0, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(1, 1, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(0, 1, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, 1, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, 0, 1)).Should().BeTrue();
-            GridDirection.IsDiagonal(new Vector3(-1, -1, 1)).Should().BeTrue();
+            new Vector3(0, -1, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(1, -1, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(1, 0, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(1, 1, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(0, 1, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, 1, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, 0, 1).IsDiagonal().Should().BeTrue();
+            new Vector3(-1, -1, 1).IsDiagonal().Should().BeTrue();
 
-            GridDirection.IsDiagonal(new Vector3(-1, 0, 0)).Should().BeFalse();
-            GridDirection.IsDiagonal(new Vector3(0, 1, 0)).Should().BeFalse();
-            GridDirection.IsDiagonal(new Vector3(1, 0, 0)).Should().BeFalse();
-            GridDirection.IsDiagonal(new Vector3(0, -1, 0)).Should().BeFalse();
-            GridDirection.IsDiagonal(new Vector3(0, 0, 1)).Should().BeFalse();
-            GridDirection.IsDiagonal(new Vector3(0, 0, -1)).Should().BeFalse();
+            new Vector3(-1, 0, 0).IsDiagonal().Should().BeFalse();
+            new Vector3(0, 1, 0).IsDiagonal().Should().BeFalse();
+            new Vector3(1, 0, 0).IsDiagonal().Should().BeFalse();
+            new Vector3(0, -1, 0).IsDiagonal().Should().BeFalse();
+            new Vector3(0, 0, 1).IsDiagonal().Should().BeFalse();
+            new Vector3(0, 0, -1).IsDiagonal().Should().BeFalse();
 
 
         }
@@ -120,18 +115,20 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void OppositeTest()
         {
-            GridDirection.Opposite(CompassDirection.North).Should().Be(CompassDirection.South);
+            GridDirection.North.Opposite().Should().Be(GridDirection.South);
+            GridDirection.NorthWest.Opposite().Should().Be(GridDirection.SouthEast);
+            GridDirection.NorthWestLower.Opposite().Should().Be(GridDirection.SouthEastRaise);
         }
 
         [Test]
         public void FromRotatorTest()
         {
             Angle a = new Angle(1, 270, 0, 0);
-            Tester.Rotation = new Rotator(0, 0, 0);
-            Tester.Value.Should().Be(CompassDirection.East);
+            Tester = GridDirectionExtentions.GetDirectionFromRotation(0, 0, 0);
+            Tester.Should().Be(GridDirection.East);
 
-            Tester.Rotation = new Rotator(45, 45, 90);
-            Tester.Value.Should().Be(CompassDirection.NorthLower);
+            Tester = GridDirectionExtentions.GetDirectionFromRotation(45, 45, 90);
+            Tester.Should().Be(GridDirection.NorthLower);
             //GridDirection.Offsets[(int) Tester.FromRotator(0, 0, 270)].X.Should().BeApproximately(0, IntegerPrec);
             //GridDirection.Offsets[(int) Tester.FromRotator(0, 0, 270)].Y.Should().BeApproximately(1, IntegerPrec);
             //GridDirection.Offsets[(int)Tester.FromRotator(0, 0, 270)].Z.Should().BeApproximately(0, IntegerPrec);

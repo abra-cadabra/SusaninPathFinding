@@ -546,4 +546,10 @@ Process memory: {4} of {5} MB available. </value>
   <data name="ArgumentAncestorMismatch" xml:space="preserve">
     <value>Argument must be of type {0} or derrived from it.</value>
   </data>
+  <data name="ArgumentsEqual" xml:space="preserve">
+    <value>Arguments must not be equal.</value>
+  </data>
+  <data name="CellsNotNeighbors" xml:space="preserve">
+    <value>Cells must be a neighbors.</value>
+  </data>
 </root>

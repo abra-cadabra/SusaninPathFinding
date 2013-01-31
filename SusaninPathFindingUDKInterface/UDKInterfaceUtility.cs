@@ -31,7 +31,7 @@ namespace SusaninPathFindingUDKInterface
 
     public static class UdkInterfaceUtility
     {
-        public static NodeInfo NodeInfoFromCellInfo(CellInfo info)
+        public static NodeInfo GetNodeInfo(this CellInfo info)
         {
 
             switch ((CellType)info.PointType)
@@ -44,6 +44,26 @@ namespace SusaninPathFindingUDKInterface
                     return new Impassable();
                 case CellType.Ladder:
                     return new Ladder((int)info.Pitch, (int)info.Yaw, (int)info.Roll);
+                default:
+                    return new Empty();
+                //case CellType.Ladder:
+                //    return new Ladder();
+            }
+        }
+
+        public static NodeInfo GetNodeInfo(this EdgeInfo info)
+        {
+
+            switch ((CellType)info.Type)
+            {
+                case CellType.Empty:
+                    return new Empty();
+                case CellType.Passable:
+                    return new Passable();
+                case CellType.Impassable:
+                    return new Impassable();
+                case CellType.Ladder:
+                    return new Ladder((info.To - info.From).AsDirection());
                 default:
                     return new Empty();
                 //case CellType.Ladder:
@@ -64,14 +84,14 @@ namespace SusaninPathFindingUDKInterface
             return CellType.Na;
         }
 
-        public static IGraphAgent<Node> GraphAgentFromMovementType(MovementType type, PolygonGrid3D graph)
+        public static IMovementAlgorithm<Cell> GraphAgentFromMovementType(MovementType type, Grid3D graph)
         {
             switch(type)
             {
                 case MovementType.Walking:
-                    return new RuningManAgent(graph);
+                    return new RuningManAlgorithm(graph);
                 default:
-                    return new RuningManAgent(graph);
+                    return new RuningManAlgorithm(graph);
             }
         }
     }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using MathNet.Numerics.LinearAlgebra.Complex;
 using SusaninPathFinding.Collections;
 using SusaninPathFinding.Geometry;
 

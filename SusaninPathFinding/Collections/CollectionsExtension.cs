@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MathNet.Numerics.Random;
 
 namespace SusaninPathFinding.Collections
 {
@@ -35,8 +34,8 @@ namespace SusaninPathFinding.Collections
         /// <paramref name="list"/> or <paramref name="predicate"/> is a null reference.</exception>
         /// <remarks><para>
         /// <b>AnyRandom</b> first selects a random element within the specified <paramref
-        /// name="list"/>, using the <see cref="MersenneTwister.Default"/> instance of the <see
-        /// cref="MersenneTwister"/> class.
+        /// name="list"/>, using the <see cref="Random.Default"/> instance of the <see
+        /// cref="Random"/> class.
         /// </para><para>
         /// <b>AnyRandom</b> then tests the specified <paramref name="predicate"/> on the selected
         /// element. As long as the result is <c>false</c>, <b>AnyRandom</b> tests <paramref
@@ -50,8 +49,8 @@ namespace SusaninPathFinding.Collections
         {
 
             int count = list.Count;
-            MersenneTwister twister = new MersenneTwister();
-            int index = twister.Next(0, count - 1);
+            Random random = new Random();
+            int index = random.Next(0, count - 1);
 
             for (int i = index; i < index + count; i++)
                 if (predicate(list[i % count]))
@@ -688,7 +687,8 @@ namespace SusaninPathFinding.Collections
             // randomly swap items down to second item
             for (int i = list.Count - 1; i >= 2; i--)
             {
-                int j = new MersenneTwister().Next(i - 1);
+                Random random = new Random();
+                int j = random.Next(i - 1);
                 swap = list[i]; list[i] = list[j]; list[j] = swap;
             }
 

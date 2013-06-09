@@ -71,9 +71,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MathNet.Numerics">
-      <HintPath>..\packages\MathNet.Numerics.2.1.2\lib\Net40\MathNet.Numerics.dll</HintPath>
-    </Reference>
     <Reference Include="MiscUtil">
       <HintPath>F:\Скачанное\development tools\C#\MiscUtil-r285\MiscUtil.dll</HintPath>
     </Reference>

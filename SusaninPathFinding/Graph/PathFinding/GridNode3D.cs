@@ -5,7 +5,7 @@ using System.Text;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph.PathFinding;
 
-namespace SusaninPathFinding.Graph
+namespace SusaninPathFinding.Graph.PathFinding
 {
     /// <summary>
     /// Defines class of graph node.

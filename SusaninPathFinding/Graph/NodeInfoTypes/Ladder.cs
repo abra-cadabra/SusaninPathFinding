@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using SusaninPathFinding.Graph.NodeInfoTypes;
 
-namespace SusaninPathFinding.Graph
+namespace SusaninPathFinding.Graph.NodeInfoTypes
 {
     public class Ladder : PartialyPassable
     {

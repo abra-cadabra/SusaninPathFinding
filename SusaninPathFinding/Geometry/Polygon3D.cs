@@ -4,9 +4,8 @@ using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using SusaninPathFinding.Geometry;
 
-namespace SusaninPathFinding.Graph
+namespace SusaninPathFinding.Geometry
 {
     /// <summary>
     /// Specifies the possible orientations of a <see cref="RegularPolygon"/>.</summary>

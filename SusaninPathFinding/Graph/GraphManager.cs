@@ -7,7 +7,7 @@ using SusaninPathFinding.Graph;
 using SusaninPathFinding.Graph.PathFinding;
 
 
-namespace SusaninPathFinding
+namespace SusaninPathFinding.Graph
 {
     
     public class GraphManager

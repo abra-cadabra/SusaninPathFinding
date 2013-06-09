@@ -21,13 +21,9 @@ namespace SusaninPathFindingTests.Graph
     public class CellTest : TestOf<Cell>
     {
 
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new Cell(10, 7, 0, new Cell3D(92, 92, 128), new Grid3D(new Cell3D(92, 92, 128)));
-        }
-
         public override void Setup()
         {
+            Tester = new Cell(10, 7, 0, new Cell3D(92, 92, 128), new Grid3D(new Cell3D(92, 92, 128)));
         }
 
         public override void CleenUp()

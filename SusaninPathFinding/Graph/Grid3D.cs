@@ -99,6 +99,21 @@ namespace SusaninPathFinding.Graph
 
         public int SizeZ { get; set; }
 
+        public int RealSizeX
+        {
+            get { return (int)(SizeX*Polygon.Bounds.SizeX); }
+        }
+
+        public int RealSizeY
+        {
+            get { return (int)(SizeY * Polygon.Bounds.SizeY); }
+        }
+
+        public int RealSizeZ
+        {
+            get { return (int)(SizeZ * Polygon.Bounds.SizeZ); }
+        }
+
         public Vector3 Size
         {
             get
@@ -362,6 +377,5 @@ namespace SusaninPathFinding.Graph
 
         #endregion
 
-        
     }
 }

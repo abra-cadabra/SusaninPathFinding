@@ -9,14 +9,10 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     class BoxTest: TestOf<Box>
     {
-        public override void InitializeSystemUnderTest()
-        {
-
-            Tester = new Box(5.2344, 2.432, 3.5634, 8.213, 8.2432, 10.32);
-        }
 
         public override void Setup()
         {
+            Tester = new Box(5.2344, 2.432, 3.5634, 8.213, 8.2432, 10.32);
         }
 
         public override void CleenUp()

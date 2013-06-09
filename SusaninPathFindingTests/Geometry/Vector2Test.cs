@@ -14,13 +14,9 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     public class Vector2Test : TestOf<Vector2>
     {
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new Vector2();
-        }
-
         public override void Setup()
         {
+            Tester = new Vector2();
         }
 
         public override void CleenUp()

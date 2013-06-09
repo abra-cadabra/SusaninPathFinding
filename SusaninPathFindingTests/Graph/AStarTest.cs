@@ -21,7 +21,7 @@ namespace SusaninPathFindingTests.Graph
         private IGraph<Cell> _graph;
         private IMovementAlgorithm<Cell> _agent;
  
-        public override void InitializeSystemUnderTest()
+        public override void Setup()
         {
             _graph = new Grid3D(6, 5, 2, new Cell3D(92, 92, 128));
             Grid3D grid = (Grid3D)_graph;
@@ -90,10 +90,6 @@ namespace SusaninPathFindingTests.Graph
             Tester = new AStar<Cell>(_graph);
             Tester.UseWorldDistance = true;
             _agent = new RuningManAlgorithm((Grid3D)_graph);
-        }
-
-        public override void Setup()
-        {
         }
 
         public override void CleenUp()

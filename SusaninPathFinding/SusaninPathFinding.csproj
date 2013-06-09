@@ -114,6 +114,8 @@
     <Compile Include="Geometry\Rect.cs" />
     <Compile Include="Geometry\Vector2.cs" />
     <Compile Include="Geometry\Cell3D.cs" />
+    <Compile Include="Graph\Platformer2DGrid\IPlatformer2DMovementAlgorithm.cs" />
+    <Compile Include="Graph\Platformer2DGrid\Platformer2DGraph.cs" />
     <Compile Include="Graph\Cell.cs" />
     <Compile Include="Graph\CellEdge.cs" />
     <Compile Include="Graph\GridUtility.cs" />

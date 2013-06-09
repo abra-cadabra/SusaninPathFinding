@@ -13,13 +13,10 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     public class Cell3DTest : TestOf<Cell3D>
     {
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new Cell3D(1, 1, 1);
-        }
 
         public override void Setup()
         {
+            Tester = new Cell3D(1, 1, 1);
         }
 
         public override void CleenUp()

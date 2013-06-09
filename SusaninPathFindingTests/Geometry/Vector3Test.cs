@@ -9,10 +9,6 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     public class Vector3Test : TestOf<Vector3>
     {
-        public override void InitializeSystemUnderTest()
-        {
-        }
-
         public override void Setup()
         {
         }

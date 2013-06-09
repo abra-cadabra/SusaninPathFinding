@@ -13,13 +13,9 @@ namespace SusaninPathFindingTests.UDKInterface
     [TestFixture]
     class SusaninPathFindingUdkInterfaceTest : TestOf<SusaninPathFindingUdkInterface>
     {
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new SusaninPathFindingUdkInterface();
-        }
-
         public override void Setup()
         {
+            Tester = new SusaninPathFindingUdkInterface();
         }
 
         public override void CleenUp()

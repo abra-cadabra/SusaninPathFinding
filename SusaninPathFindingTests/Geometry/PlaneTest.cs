@@ -11,10 +11,6 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     public class PlaneTest : TestOf<Plane>
     {
-        public override void InitializeSystemUnderTest()
-        {
-        }
-
         public override void Setup()
         {
         }

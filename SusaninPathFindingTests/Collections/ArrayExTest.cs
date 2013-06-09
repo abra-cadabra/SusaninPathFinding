@@ -10,14 +10,10 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     class ArrayExTest : TestOf<ArrayEx<int>>
     {
-        public override void InitializeSystemUnderTest()
-        {
-
-            Tester = new ArrayEx<int>(new []{3, 4, 5});
-        }
 
         public override void Setup()
         {
+            Tester = new ArrayEx<int>(new[] { 3, 4, 5 });
         }
 
         public override void CleenUp()

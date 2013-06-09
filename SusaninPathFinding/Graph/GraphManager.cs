@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph;
+using SusaninPathFinding.Graph.NodeInfoTypes;
 using SusaninPathFinding.Graph.PathFinding;
 
 

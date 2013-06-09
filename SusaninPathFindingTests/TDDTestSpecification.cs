@@ -18,7 +18,6 @@ namespace SusaninPathFindingTests.TDDTests
         [SetUp]
         public void SetUp()
         {
-            InitializeSystemUnderTest();
             Setup();
         }
         /// <summary>
@@ -29,10 +28,7 @@ namespace SusaninPathFindingTests.TDDTests
         {
             CleenUp();
         }
-        /// <summary>
-        /// Функция, используемая для создания и инициализации тестируемого объекта
-        /// </summary>
-        public abstract void InitializeSystemUnderTest();
+
         /// <summary>
         /// В эту функцию впишите действия, которые должны проводиться перед каждым тестом.
         /// Например, подготовку условий тестирования.

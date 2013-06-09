@@ -15,13 +15,9 @@ namespace SusaninPathFindingTests.Graph
     public class NodeInfoTest : TestOf<NodeInfo>
     {
 
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new Passable();
-        }
-
         public override void Setup()
         {
+            Tester = new Passable();
         }
 
         public override void CleenUp()

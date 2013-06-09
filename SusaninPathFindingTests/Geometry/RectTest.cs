@@ -9,10 +9,6 @@ namespace SusaninPathFindingTests.Geometry
     public class RectTest : TestOf<Rect>
     {
 
-        public override void InitializeSystemUnderTest()
-        {
-        }
-
         public override void Setup()
         {
         }

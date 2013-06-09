@@ -10,16 +10,12 @@ using SusaninPathFindingTests.TDDTests;
 namespace SusaninPathFindingTests.Graph
 {
     [TestFixture]
-    public class PolygonGrid3DTest : TestOf<Grid3D>
+    public class Grid3DTest : TestOf<Grid3D>
     {
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new Grid3D(new Cell3D(10, 10, 10));
-        }
 
         public override void Setup()
         {
-            Tester.Create(10, 10, 10);
+            Tester = new Grid3D(10, 10, 10, new Cell3D(10, 10, 10));
         }
 
         public override void CleenUp()

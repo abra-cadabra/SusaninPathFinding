@@ -21,15 +21,10 @@ namespace SusaninPathFindingTests.Graph
         public Grid3D Nodes { private get; set; }
 
         
-        public override void InitializeSystemUnderTest()
+        public override void Setup()
         {
             Nodes = new Grid3D(3, 3, 2, new Cell3D(92, 92, 128));
             Tester = new RuningManAlgorithm(Nodes);
-        }
-
-        public override void Setup()
-        {
-            //Nodes = new PolygonGrid3D<CellInfo>(new Cell3D());
         }
 
         public override void CleenUp()

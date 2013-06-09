@@ -5,6 +5,7 @@ using System.Text;
 using FluentAssertions;
 using NUnit.Framework;
 using SusaninPathFinding.Graph;
+using SusaninPathFinding.Graph.NodeInfoTypes;
 using SusaninPathFindingTests.Graph;
 using SusaninPathFindingTests.TDDTests;
 
@@ -12,13 +13,9 @@ namespace SusaninPathFindingTests.Graph
 {
     public class LadderTest : TestOf<Ladder>
     {
-        public override void InitializeSystemUnderTest()
-        {
-            Tester = new Ladder(GridDirection.NorthEast);
-        }
-
         public override void Setup()
         {
+            Tester = new Ladder(GridDirection.NorthEast);
         }
 
         public override void CleenUp()

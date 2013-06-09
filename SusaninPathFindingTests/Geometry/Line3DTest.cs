@@ -12,10 +12,6 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     public class Line3DTest : TestOf<Line3D>
     {
-        public override void InitializeSystemUnderTest()
-        {
-        }
-
         public override void Setup()
         {
         }

@@ -13,11 +13,6 @@ namespace SusaninPathFindingTests.Geometry
     [TestFixture]
     public class LineIntersectionTest : TestOf<LineIntersection>
     {
-
-        public override void InitializeSystemUnderTest()
-        {
-        }
-
         public override void Setup()
         {
         }

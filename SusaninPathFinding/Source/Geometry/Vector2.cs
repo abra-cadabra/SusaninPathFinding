@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
+//using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -73,25 +73,25 @@ namespace SusaninPathFinding.Geometry
         }
 
 
-        public static implicit operator Vector2(PointF p)
-        {
-            return new Vector2(p.X, p.Y);
-        }
+        //public static implicit operator Vector2(PointF p)
+        //{
+        //    return new Vector2(p.X, p.Y);
+        //}
 
-        public static implicit operator Vector2(Point p)
-        {
-            return new Vector2(p.X, p.Y);
-        }
+        //public static implicit operator Vector2(Point p)
+        //{
+        //    return new Vector2(p.X, p.Y);
+        //}
 
-        public static implicit operator PointF(Vector2 p)
-        {
-            return new PointF((float)p.X, (float)p.Y);
-        }
+        //public static implicit operator PointF(Vector2 p)
+        //{
+        //    return new PointF((float)p.X, (float)p.Y);
+        //}
 
-        public static implicit operator Point(Vector2 p)
-        {
-            return new Point((int)p.X, (int)p.Y);
-        }
+        //public static implicit operator Point(Vector2 p)
+        //{
+        //    return new Point((int)p.X, (int)p.Y);
+        //}
 
 
         // ================================================================================

@@ -23,10 +23,11 @@ namespace SusaninPathFinding.Graph
 
         public bool CanMakeStep(Cell source, Cell target)
         {
-            if (target.X.AlmostEquals(2) && target.Y.AlmostEquals(2) && target.Z.AlmostEquals(0))
-            {
-                Debug.Write(target);
-            }
+            //if (target.X.AlmostEquals(2) && target.Y.AlmostEquals(2) && target.Z.AlmostEquals(0))
+            //{
+            //    Debug.Write(target);
+            //}
+
             CellEdge edge;// = Grid.Edges[source, target];
             Grid.Edges.TryGetValue(source, target, out edge);
             //if ((target.X == 1 && target.Y == 4 && target.Z == 0) && (source.X == 1 && source.Y == 3 && source.Z == 0))
@@ -52,10 +53,11 @@ namespace SusaninPathFinding.Graph
                 bool hor;
                 if(((Grid3D)Grid).Contains(source + horOffset))
                 {
-                    if(((Grid3D) Grid)[source + horOffset].Info is Empty)
-                    {
-                        Debug.Write(target + "is empty");
-                    }
+                    //if(((Grid3D) Grid)[source + horOffset].Info is Empty)
+                    //{
+                    //    Debug.Write(target + "is empty");
+                    //}
+
                     hor = ((Grid3D) Grid)[source + horOffset].Info is Passable;
                 }
                 else
@@ -67,10 +69,11 @@ namespace SusaninPathFinding.Graph
                 bool wert;
                 if (((Grid3D)Grid).Contains(source + wertOffset))
                 {
-                    if (((Grid3D)Grid)[source + wertOffset].Info is Empty)
-                    {
-                        Debug.Write(target + "is empty");
-                    }
+                    //if (((Grid3D)Grid)[source + wertOffset].Info is Empty)
+                    //{
+                    //    Debug.Write(target + "is empty");
+                    //}
+
                     wert = ((Grid3D)Grid)[source + wertOffset].Info is Passable;
                 }
                 else

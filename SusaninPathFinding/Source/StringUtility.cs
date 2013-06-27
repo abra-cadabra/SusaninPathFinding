@@ -425,7 +425,7 @@ namespace SusaninPathFinding
 
         public static string ValidOrNull(this string value, string invalid = null)
         {
-            if (String.IsNullOrWhiteSpace(value))
+            if (String.IsNullOrEmpty(value))
                 return null;
 
             if (invalid != null && String.CompareOrdinal(value, invalid) == 0)

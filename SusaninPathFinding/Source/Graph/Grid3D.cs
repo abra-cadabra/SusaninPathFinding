@@ -262,12 +262,15 @@ namespace SusaninPathFinding.Graph
             return GetNeighbors(node, null);
         }
 
-        public IList<Cell> GetNeighbors(Cell node, IMovementAlgorithm<Cell> agent)
+        public IList<Cell> GetNeighbors(Cell node, Object agent)
         {
-            if(!(agent is IGridMovementAlgorithm))
+            if(!(agent is IMovementAlgorithm<Cell>))
                 throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridMovementAlgorithm)));
 
-            return GetNeighbors(node, (IGridMovementAlgorithm) agent);
+            //if (!(agent is IGridMovementAlgorithm))
+            //    throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridMovementAlgorithm)));
+
+            return GetNeighbors(node, (IGridMovementAlgorithm)agent);
         }
 
         //public IList<Node> GetConnections(Node node)
@@ -275,7 +278,7 @@ namespace SusaninPathFinding.Graph
         //    return Edges[(int)node.X, (int)node.Y, (int)node.Z];
         //}
 
-        public new IList<Cell> GetNeighbors(Cell node, IGridMovementAlgorithm agent = null)
+        public new IList<Cell> GetNeighbors(Cell node, IGridMovementAlgorithm agent)
         {
             IList<Cell> neighbors = new List<Cell>();//GraphDirection.Offsets.Length);
             if (agent != null && agent.Grid != this)

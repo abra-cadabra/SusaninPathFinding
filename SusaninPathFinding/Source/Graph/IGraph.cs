@@ -224,7 +224,7 @@ namespace SusaninPathFinding.Graph
         /// <param name="agent">
         /// The <see cref="IMovementAlgorithm{TNode}"/> agent which should be able to pass returned nodes.</param>
         /// <returns>
-        /// An <see cref="IList{T}"/> containing all valid <see cref="IGraph2D{TNode}"/> nodes that are
+        /// An <see cref="IList{T}"/> containSing all valid <see cref="IGraph2D{TNode}"/> nodes that are
         /// directly connected with the specified <paramref name="node"/>. The number of elements is
         /// at most <see cref="Connectivity"/>.</returns>
         /// <exception cref="ArgumentException">
@@ -238,11 +238,11 @@ namespace SusaninPathFinding.Graph
         /// cref="IMovementAlgorithm{T}.CanMakeStep"/> could possibly succeed, assuming the specified
         /// <paramref name="node"/> is the source node.
         /// </para><para>
-        /// <b>GetNeighbors</b> should throw an <see cref="ArgumentException"/> only if the
+        /// <b>GetNeighbors</b> should throw an <see cref="ArgumentException"/> only if theSS
         /// specified <paramref name="node"/> is invalid for any possible <see cref="IGraph2D{TNode}"/>
         /// instance, e.g. a null reference.</para></remarks>
         /// 
-        IList<TNode> GetNeighbors(TNode node, IMovementAlgorithm<TNode> agent);
+        IList<TNode> GetNeighbors(TNode node, Object agent);
 
         #endregion
 

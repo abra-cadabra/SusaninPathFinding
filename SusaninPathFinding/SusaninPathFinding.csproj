@@ -92,62 +92,62 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Angle.cs" />
-    <Compile Include="ArgumentNullOrEmpty.cs" />
-    <Compile Include="Collections\ArrayEx.cs" />
-    <Compile Include="Collections\CellEdgeCollection.cs" />
-    <Compile Include="Collections\CollectionsExtension.cs" />
-    <Compile Include="Collections\ComparerCache.cs" />
-    <Compile Include="Collections\IKeyedValue.cs" />
-    <Compile Include="Collections\IndexedSortedList.cs" />
-    <Compile Include="Collections\KeyMismatchException.cs" />
-    <Compile Include="Collections\ListEx.cs" />
-    <Compile Include="Geometry\Box.cs" />
-    <Compile Include="Geometry\IPoint.cs" />
-    <Compile Include="Geometry\IPolygon.cs" />
-    <Compile Include="Geometry\Line3D.cs" />
-    <Compile Include="Geometry\LineIntersection.cs" />
-    <Compile Include="Geometry\Plane.cs" />
-    <Compile Include="Geometry\Rect.cs" />
-    <Compile Include="Geometry\Vector2.cs" />
-    <Compile Include="Geometry\Cell3D.cs" />
-    <Compile Include="Graph\Platformer2DGrid\IPlatformer2DMovementAlgorithm.cs" />
-    <Compile Include="Graph\Platformer2DGrid\Platformer2DGraph.cs" />
-    <Compile Include="Graph\Cell.cs" />
-    <Compile Include="Graph\CellEdge.cs" />
-    <Compile Include="Graph\GridUtility.cs" />
-    <Compile Include="Graph\IGridMovementAlgorithm.cs" />
-    <Compile Include="Graph\NodeInfoTypes\Empty.cs" />
-    <Compile Include="Graph\NodeInfoTypes\Impassable.cs" />
-    <Compile Include="Graph\NodeInfoTypes\PartialyPassable.cs" />
-    <Compile Include="Graph\NodeInfoTypes\NodeInfo.cs" />
-    <Compile Include="Graph\PathFinding\GridNode3D.cs" />
-    <Compile Include="Graph\PathFinding\AStar.cs" />
-    <Compile Include="Graph\NodeInfoTypes\Passable.cs" />
-    <Compile Include="Graph\GridDirection.cs" />
-    <Compile Include="Graph\IGraph.cs" />
-    <Compile Include="Graph\IGraphMovementAlgorithm.cs" />
-    <Compile Include="Graph\PathFinding\IGraphPath.cs" />
-    <Compile Include="Graph\NodeInfoTypes\Ladder.cs" />
-    <Compile Include="Graph\PathFinding\PathNode.cs" />
-    <Compile Include="Geometry\Vector3.cs" />
-    <Compile Include="Graph\GraphManager.cs" />
-    <Compile Include="Graph\IGraphManager.cs" />
-    <Compile Include="Graph\PathFinding\PotencialField.cs" />
-    <Compile Include="Graph\RuningManAlgorithm.cs" />
-    <Compile Include="Graph\Grid3D.cs" />
-    <Compile Include="Geometry\Polygon3D.cs" />
-    <Compile Include="MathEx.cs" />
-    <Compile Include="DirectionArray.cs" />
+    <Compile Include="Source\Angle.cs" />
+    <Compile Include="Source\ArgumentNullOrEmpty.cs" />
+    <Compile Include="Source\Collections\ArrayEx.cs" />
+    <Compile Include="Source\Collections\CellEdgeCollection.cs" />
+    <Compile Include="Source\Collections\CollectionsExtension.cs" />
+    <Compile Include="Source\Collections\ComparerCache.cs" />
+    <Compile Include="Source\Collections\IKeyedValue.cs" />
+    <Compile Include="Source\Collections\IndexedSortedList.cs" />
+    <Compile Include="Source\Collections\KeyMismatchException.cs" />
+    <Compile Include="Source\Collections\ListEx.cs" />
+    <Compile Include="Source\Geometry\Box.cs" />
+    <Compile Include="Source\Geometry\IPoint.cs" />
+    <Compile Include="Source\Geometry\IPolygon.cs" />
+    <Compile Include="Source\Geometry\Line3D.cs" />
+    <Compile Include="Source\Geometry\LineIntersection.cs" />
+    <Compile Include="Source\Geometry\Plane.cs" />
+    <Compile Include="Source\Geometry\Rect.cs" />
+    <Compile Include="Source\Geometry\Vector2.cs" />
+    <Compile Include="Source\Geometry\Cell3D.cs" />
+    <Compile Include="Source\Graph\Platformer2DGrid\IPlatformer2DMovementAlgorithm.cs" />
+    <Compile Include="Source\Graph\Platformer2DGrid\Platformer2DGraph.cs" />
+    <Compile Include="Source\Graph\Cell.cs" />
+    <Compile Include="Source\Graph\CellEdge.cs" />
+    <Compile Include="Source\Graph\GridUtility.cs" />
+    <Compile Include="Source\Graph\IGridMovementAlgorithm.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\Empty.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\Impassable.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\PartialyPassable.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\NodeInfo.cs" />
+    <Compile Include="Source\Graph\PathFinding\GridNode3D.cs" />
+    <Compile Include="Source\Graph\PathFinding\AStar.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\Passable.cs" />
+    <Compile Include="Source\Graph\GridDirection.cs" />
+    <Compile Include="Source\Graph\IGraph.cs" />
+    <Compile Include="Source\Graph\IGraphMovementAlgorithm.cs" />
+    <Compile Include="Source\Graph\PathFinding\IGraphPath.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\Ladder.cs" />
+    <Compile Include="Source\Graph\PathFinding\PathNode.cs" />
+    <Compile Include="Source\Geometry\Vector3.cs" />
+    <Compile Include="Source\Graph\GraphManager.cs" />
+    <Compile Include="Source\Graph\IGraphManager.cs" />
+    <Compile Include="Source\Graph\PathFinding\PotencialField.cs" />
+    <Compile Include="Source\Graph\RuningManAlgorithm.cs" />
+    <Compile Include="Source\Graph\Grid3D.cs" />
+    <Compile Include="Source\Geometry\Polygon3D.cs" />
+    <Compile Include="Source\MathEx.cs" />
+    <Compile Include="Source\DirectionArray.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="PropertyValueException.cs" />
-    <Compile Include="Rotator.cs" />
-    <Compile Include="Strings.Designer.cs">
+    <Compile Include="Source\PropertyValueException.cs" />
+    <Compile Include="Source\Rotator.cs" />
+    <Compile Include="Source\Strings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Strings.resx</DependentUpon>
     </Compile>
-    <Compile Include="StringUtility.cs" />
+    <Compile Include="Source\StringUtility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -158,7 +158,7 @@
     <Content Include="App_Readme\MathNet.Numerics.readme.txt" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Strings.resx">
+    <EmbeddedResource Include="Source\Strings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Strings.Designer.cs</LastGenOutput>
     </EmbeddedResource>

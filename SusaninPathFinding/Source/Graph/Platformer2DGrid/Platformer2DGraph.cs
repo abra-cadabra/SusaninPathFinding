@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using SusaninPathFinding.Geometry;
 
+
 namespace SusaninPathFinding.Graph.Platformer2DGrid
 {
     public class Platformer2DGraph : Grid3D

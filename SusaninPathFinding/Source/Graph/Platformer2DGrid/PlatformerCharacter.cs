@@ -24,7 +24,7 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
         public float Vy { get; protected set; }
         public Vector3 Position { get; protected set; }
 
-        IGrid IGridPathFindingMovementAlgorithm.Grid
+        IGrid IGridMovementAlgorithm.Grid
         { 
             get { return Grid; }
             set { Grid = (Platformer2DGrid)value; }

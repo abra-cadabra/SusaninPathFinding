@@ -155,5 +155,14 @@ namespace SusaninPathFindingTests.Graph
             Tester[1, 0, 5].WorldLocation.Y.Should().Be(5);
             Tester[1, 0, 5].WorldLocation.Z.Should().Be(55);
         }
+
+
+
+        public static Grid3D CreateTestGrid()
+        {
+            Grid3D grid = new Grid3D(10, 10, 1, new Cell3D(10, 10, 10), new Passable());
+
+            return grid;
+        }
     }
 }

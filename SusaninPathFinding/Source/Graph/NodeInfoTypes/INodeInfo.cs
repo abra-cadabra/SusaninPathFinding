@@ -5,7 +5,7 @@ using System.Text;
 
 namespace SusaninPathFinding.Graph.NodeInfoTypes
 {
-    public class NodeInfo : Object
+    public interface INodeInfo : ICloneable
     {
     }
 }

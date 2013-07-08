@@ -7,6 +7,7 @@ using SusaninPathFinding.Collections;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph.NodeInfoTypes;
 using SusaninPathFinding.Graph.PathFinding;
+using SusaninPathFinding.Source.Graph;
 
 
 namespace SusaninPathFinding.Graph
@@ -14,7 +15,7 @@ namespace SusaninPathFinding.Graph
     public class RuningManAlgorithm : IGridMovementAlgorithm
     {
         //public PolygonGrid3D Nodes { get; set; }
-        public Grid3D Grid { get; set; }
+        public IGrid Grid { get; set; }
 
         public RuningManAlgorithm(Grid3D nodes)
         {

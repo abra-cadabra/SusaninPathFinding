@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph.NodeInfoTypes;
+using SusaninPathFinding.Graph.PathFinding;
 
 
 namespace SusaninPathFinding.Graph.Platformer2DGrid
@@ -23,7 +24,7 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
         {
         }
 
-        public override IList<Cell> GetNeighbors(Cell node, Object agent)
+        public new IList<Cell> GetNeighbors(Cell node, Object agent)
         {
             if (!(agent is IMovementAlgorithm<Cell>))
                 throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridMovementAlgorithm)));
@@ -43,7 +44,7 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
             {
                 if (Contains(node + GridDirectionExtentions.Offsets[i]))
                 {
-                    Cell neighbor = this[node + GridDirectionExtentions.Offsets[i]];
+                    PathNodeCell neighbor = (PathNodeCell)this[node + GridDirectionExtentions.Offsets[i]];
                     //if (!Contains(neighbor))
                     //    continue;
 
@@ -51,7 +52,11 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
                         continue;
                     else
                     {
-                        
+                        Vector3 dirOffset = neighbor - node;
+                        if (dirOffset.IsSouth())
+                        {
+                           
+                        }
                     }
 
                     neighbors.Add(neighbor);

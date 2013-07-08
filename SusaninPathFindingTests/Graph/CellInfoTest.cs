@@ -12,7 +12,7 @@ using SusaninPathFindingTests.TDDTests;
 namespace SusaninPathFindingTests.Graph
 {
     [TestFixture]
-    public class NodeInfoTest : TestOf<NodeInfo>
+    public class NodeInfoTest : TestOf<INodeInfo>
     {
 
         public override void Setup()

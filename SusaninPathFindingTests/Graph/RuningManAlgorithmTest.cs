@@ -135,11 +135,11 @@ namespace SusaninPathFindingTests.Graph
         [Test]
         public void CanOccupyTest()
         {
-            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester. Grid).Polygon, Tester.Grid, new Passable())).
+            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable())).
                 Should().BeTrue();
-            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Ladder(GridDirection.South))).
+            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Ladder(GridDirection.South))).
                 Should().BeTrue();
-            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Impassable())).
+            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Impassable())).
                 Should().BeFalse();
         }
 
@@ -147,34 +147,34 @@ namespace SusaninPathFindingTests.Graph
         public void GetStepCostTest()
         {
 
-            Tester.GetStepCost(new Cell(1, 0, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable()), new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable())).
+            Tester.GetStepCost(new Cell(1, 0, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable()), new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable())).
                 Should().BeApproximately(5, FloatPrec);
-            Tester.GetStepCost(new Cell(1, 0, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable()), new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Ladder(GridDirection.South))).
+            Tester.GetStepCost(new Cell(1, 0, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable()), new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Ladder(GridDirection.South))).
                 Should().BeApproximately(6, FloatPrec);
-            Tester.GetStepCost(new Cell(0, 0, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable()), new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable())).
+            Tester.GetStepCost(new Cell(0, 0, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable()), new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable())).
                 Should().BeApproximately(7, FloatPrec);
         }
 
         [Test]
         public void IsNearTarget()
         {
-            Cell n1 = new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable());
-            Cell n2 = new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable());
+            Cell n1 = new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, (Grid3D) Tester.Grid, new Passable());
+            Cell n2 = new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, (Grid3D) Tester.Grid, new Passable());
             Tester.IsNearTarget(n1, n2, n1.Distance(n2)).Should().BeTrue();
 
-            n1 = new Cell(1, 0, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable());
-            n2 = new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable());
+            n1 = new Cell(1, 0, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable());
+            n2 = new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable());
             Tester.IsNearTarget(n1, n2, n1.Distance(n2)).Should().BeFalse();
         }
 
         [Test]
         public void CanPassTest()
         {
-            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Passable())).
+            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Passable())).
                 Should().BeTrue();
-            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Ladder(GridDirection.South))).
+            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Ladder(GridDirection.South))).
                 Should().BeTrue();
-            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, Tester.Grid, new Impassable())).
+            Tester.CanPass(new Cell(1, 1, 0, ((Grid3D)Tester.Grid).Polygon, ((Grid3D)Tester.Grid), new Impassable())).
                 Should().BeFalse();
         }
     }

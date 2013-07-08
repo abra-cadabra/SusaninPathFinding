@@ -19,5 +19,10 @@ namespace SusaninPathFinding.Graph.NodeInfoTypes
         {
             Direction = GridDirectionExtentions.GetDirectionFromRotation(pitch, yaw, roll);
         }
+
+        public object Clone()
+        {
+            return new Ladder(Direction);
+        }
     }
 }

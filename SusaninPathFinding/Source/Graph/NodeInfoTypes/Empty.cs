@@ -6,7 +6,11 @@ using SusaninPathFinding.Graph.NodeInfoTypes;
 
 namespace SusaninPathFinding.Graph.NodeInfoTypes
 {
-    public class Empty : NodeInfo
+    public class Empty : INodeInfo
     {
+        public object Clone()
+        {
+            return new Empty();
+        }
     }
 }

@@ -27,18 +27,18 @@ namespace SusaninPathFinding.Graph
         /// <summary>
         /// Information about this edge
         /// </summary>
-        public NodeInfo Info { get; set; }
+        public INodeInfo Info { get; set; }
 
         #endregion
 
         #region Constructors
 
-        public CellEdge(NodeInfo info)
+        public CellEdge(INodeInfo info)
         {
             Info = info;
         }
 
-        public CellEdge(Cell from, Cell to, NodeInfo info)
+        public CellEdge(Cell from, Cell to, INodeInfo info)
         {
             From = from;
             To = to;

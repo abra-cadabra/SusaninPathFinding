@@ -85,8 +85,10 @@
     <Compile Include="Graph\GridDirectionTest.cs" />
     <Compile Include="Graph\NodeTest.cs" />
     <Compile Include="Graph\LadderTest.cs" />
-    <Compile Include="Graph\Platformer2DGraphTests.cs" />
+    <Compile Include="Graph\PathFinding\OpenClosedGraphTests.cs" />
     <Compile Include="Graph\Grid3DTest.cs" />
+    <Compile Include="Graph\Platformer3DTests\Platformer2DCharacterAlgorithmTest.cs" />
+    <Compile Include="Graph\Platformer3DTests\Platformer2DGraphTests.cs" />
     <Compile Include="Graph\RuningManAlgorithmTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TDDTestSpecification.cs" />

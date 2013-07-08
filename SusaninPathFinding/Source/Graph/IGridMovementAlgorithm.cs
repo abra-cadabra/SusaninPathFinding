@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using SusaninPathFinding.Source.Graph;
 
 namespace SusaninPathFinding.Graph
 {
     public interface IGridMovementAlgorithm : IMovementAlgorithm<Cell>
     {
-        Grid3D Grid { get; set; }
+        IGrid Grid { get; set; }
     }
 }

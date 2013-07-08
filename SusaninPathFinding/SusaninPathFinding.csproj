@@ -111,6 +111,11 @@
     <Compile Include="Source\Geometry\Rect.cs" />
     <Compile Include="Source\Geometry\Vector2.cs" />
     <Compile Include="Source\Geometry\Cell3D.cs" />
+    <Compile Include="Source\Graph\IGrid.cs" />
+    <Compile Include="Source\Graph\PathFinding\IGridPathFindingMovementAlgorithm.cs" />
+    <Compile Include="Source\Graph\PathFinding\OpenClosedGrid.cs" />
+    <Compile Include="Source\Graph\PathFinding\PathNodeCell.cs" />
+    <Compile Include="Source\Graph\PathNode3D.cs" />
     <Compile Include="Source\Graph\Platformer2DGrid\IPlatformer2DMovementAlgorithm.cs" />
     <Compile Include="Source\Graph\Platformer2DGrid\Platformer2DGraph.cs" />
     <Compile Include="Source\Graph\Cell.cs" />
@@ -120,7 +125,7 @@
     <Compile Include="Source\Graph\NodeInfoTypes\Empty.cs" />
     <Compile Include="Source\Graph\NodeInfoTypes\Impassable.cs" />
     <Compile Include="Source\Graph\NodeInfoTypes\PartialyPassable.cs" />
-    <Compile Include="Source\Graph\NodeInfoTypes\NodeInfo.cs" />
+    <Compile Include="Source\Graph\NodeInfoTypes\INodeInfo.cs" />
     <Compile Include="Source\Graph\PathFinding\GridNode3D.cs" />
     <Compile Include="Source\Graph\PathFinding\AStar.cs" />
     <Compile Include="Source\Graph\NodeInfoTypes\Passable.cs" />
@@ -131,9 +136,10 @@
     <Compile Include="Source\Graph\NodeInfoTypes\Ladder.cs" />
     <Compile Include="Source\Graph\PathFinding\PathNode.cs" />
     <Compile Include="Source\Geometry\Vector3.cs" />
-    <Compile Include="Source\Graph\GraphManager.cs" />
     <Compile Include="Source\Graph\IGraphManager.cs" />
     <Compile Include="Source\Graph\PathFinding\PotencialField.cs" />
+    <Compile Include="Source\Graph\Platformer2DGrid\Platformer2DGrid.cs" />
+    <Compile Include="Source\Graph\Platformer2DGrid\PlatformerCharacter.cs" />
     <Compile Include="Source\Graph\RuningManAlgorithm.cs" />
     <Compile Include="Source\Graph\Grid3D.cs" />
     <Compile Include="Source\Geometry\Polygon3D.cs" />

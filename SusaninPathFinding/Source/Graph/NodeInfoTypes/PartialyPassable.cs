@@ -32,7 +32,7 @@ namespace SusaninPathFinding.Graph.NodeInfoTypes
     //    Ladder = 1 << 3
     //}
 
-    public class PartialyPassable : NodeInfo
+    public interface PartialyPassable : INodeInfo
     {
         //private CellType _type;
 

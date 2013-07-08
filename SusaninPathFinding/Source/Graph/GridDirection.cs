@@ -367,5 +367,28 @@ namespace SusaninPathFinding.Graph
         }
 
         #endregion
+
+        public static bool IsSouth(this Vector3 dirOffset)
+        {
+            GridDirection dir = dirOffset.AsDirection();
+
+            return IsDiagonal(dir);
+        }
+
+        public static bool IsSouth(this GridDirection dir)
+        {
+            if (dir == GridDirection.South
+                || dir == GridDirection.SouthEast
+                || dir == GridDirection.SouthEastLower
+                || dir == GridDirection.SouthEastRaise
+                || dir == GridDirection.SouthLower
+                || dir == GridDirection.SouthRaise
+                || dir == GridDirection.SouthWest
+                || dir == GridDirection.SouthWestLower
+                || dir == GridDirection.SouthWestRaise)
+                return true;
+            else
+                return false;
+        }
     }
 }

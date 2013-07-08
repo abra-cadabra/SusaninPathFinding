@@ -40,42 +40,35 @@ namespace SusaninPathFinding.Graph
         //    }
         //}
 
-        public NodeInfo Info { get; set; }
+        public INodeInfo Info { get; set; }
 
         #endregion
 
         #region Constructors
 
-        private void Init(double x, double y, double z, IPolygon polygon, Grid3D graph, NodeInfo info = null)
+        private void Init(double x, double y, double z, IPolygon polygon, Grid3D graph, INodeInfo info = null)
         {
             X = x;
             Y = y;
             Z = z;
             if (info != null)
             {
-                Info = info;
+                Info = (INodeInfo)info.Clone();
             }
             else
             {
-                if(Z.AlmostEquals(0, 0))
-                {
-                    Info = new Passable();
-                }
-                else
-                {
-                    Info = new Empty();
-                }
+                Info = new Empty();
             }
             Polygon = polygon;
             Grid = graph;
         }
 
-        public Cell(double x, double y, double z, IPolygon polygon, Grid3D graph, NodeInfo info = null)
+        public Cell(double x, double y, double z, IPolygon polygon, Grid3D graph, INodeInfo info = null)
         {
             Init(x, y, z, polygon, graph, info);
         }
 
-        public Cell(Vector3 v, IPolygon polygon, Grid3D graph, NodeInfo info = null)
+        public Cell(Vector3 v, IPolygon polygon, Grid3D graph, INodeInfo info = null)
         {
             Init(v.X, v.Y, v.Z, polygon, graph, info);
         }

@@ -31,7 +31,7 @@ namespace SusaninPathFindingUDKInterface
 
     public static class UdkInterfaceUtility
     {
-        public static NodeInfo GetNodeInfo(this CellInfo info)
+        public static INodeInfo GetNodeInfo(this CellInfo info)
         {
 
             switch ((CellType)info.PointType)
@@ -51,7 +51,7 @@ namespace SusaninPathFindingUDKInterface
             }
         }
 
-        public static NodeInfo GetNodeInfo(this EdgeInfo info)
+        public static INodeInfo GetNodeInfo(this EdgeInfo info)
         {
 
             switch ((CellType)info.Type)
@@ -71,7 +71,7 @@ namespace SusaninPathFindingUDKInterface
             }
         }
 
-        public static CellType Type(this NodeInfo info)
+        public static CellType Type(this INodeInfo info)
         {
             if (info is Empty)
                 return CellType.Empty;

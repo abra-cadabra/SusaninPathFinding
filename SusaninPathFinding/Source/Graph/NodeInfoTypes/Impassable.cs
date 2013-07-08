@@ -5,7 +5,11 @@ using System.Text;
 
 namespace SusaninPathFinding.Graph.NodeInfoTypes
 {
-    public class Impassable : NodeInfo
+    public class Impassable : INodeInfo
     {
+        public object Clone()
+        {
+            return new Impassable();
+        }
     }
 }

@@ -9,10 +9,11 @@ using SusaninPathFinding.Collections;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph.NodeInfoTypes;
 using SusaninPathFinding.Graph.PathFinding;
+using SusaninPathFinding.Source.Graph;
 
 namespace SusaninPathFinding.Graph
 {
-    public class Grid3D : IGraph<Cell>
+    public class Grid3D : IGrid//IGraph<Cell>
     {
         #region Fields
 
@@ -129,7 +130,7 @@ namespace SusaninPathFinding.Graph
             //}
         }
 
-        public Cell3D Polygon
+        public IPolygon Polygon
         {
             get;
             set;
@@ -141,10 +142,16 @@ namespace SusaninPathFinding.Graph
 
         #region Constructors
 
+        public Grid3D(int x, int y, int z, Cell3D polygon, INodeInfo fill)
+        {
+            Init(polygon);
+            Create(x, y, z, polygon, fill);
+        }
+
         public Grid3D(int x, int y, int z, Cell3D polygon)
         {
             Init(polygon);
-            Create(x, y, z);
+            Create(x, y, z, polygon);
         }
 
         public Grid3D(Cell3D polygon)
@@ -167,34 +174,25 @@ namespace SusaninPathFinding.Graph
         /// <param name="sizeX">X size parameter</param>
         /// <param name="sizeY">Y size parameter</param>
         /// <param name="sizeZ">Z size parameter</param>
-        public void Create(int sizeX, int sizeY, int sizeZ)
+        public void Create(int sizeX, int sizeY, int sizeZ, Cell3D polygon, INodeInfo fill = null)
         {
             SizeX = sizeX;
             SizeY = sizeY;
             SizeZ = sizeZ;
-            Nodes = new ArrayEx<Cell>(new int[] {SizeX, SizeY, SizeZ});
+            Nodes = new ArrayEx<Cell>(new int[] { SizeX, SizeY, SizeZ });
 
-            for (int k = 0; k < SizeZ; k++ )
+            for (int k = 0; k < SizeZ; k++)
             {
-                for(int j = 0; j<SizeY; j++)
+                for (int j = 0; j < SizeY; j++)
                 {
                     for (int i = 0; i < SizeX; i++)
                     {
                         //_nodes[i, j, k] = new Node3D<T>(i * Polygon.Bounds.SizeX, j * Polygon.Bounds.SizeY, k * Polygon.Bounds.SizeZ, Polygon);
-                        Nodes[i, j, k] = new Cell(i, j, k, Polygon, this);
+                        Nodes[i, j, k] = new Cell(i, j, k, Polygon, this, fill);
                     }
                 }
             }
 
-            //for (int i = 0; i < Nodes.Count; i++)
-            //{
-            //    var node = (Cell) Nodes[i];
-            //    var neighbors = ((Cell)Nodes[i]).Neighbors;
-            //    foreach (var n in neighbors)
-            //    {
-            //        Edges.Add(node, n, new CellEdge(new Passable()));
-            //    }
-            //}
         }
         #endregion
 
@@ -246,7 +244,7 @@ namespace SusaninPathFinding.Graph
 
 
 
-        Cell IGraph<Cell>.GetNearestNode(Vector3 location)
+        public Cell GetNearestNode(Vector3 location)
         {
             //int x = location.X / Polygon.;
             return this[(int)location.X, (int)location.Y, (int)location.Z];

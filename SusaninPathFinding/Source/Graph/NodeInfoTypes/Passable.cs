@@ -32,7 +32,7 @@ namespace SusaninPathFinding.Graph.NodeInfoTypes
     //    Ladder = 1 << 3
     //}
 
-    public class Passable : NodeInfo
+    public class Passable : INodeInfo
     {
 
         //private CellType _type;
@@ -58,5 +58,9 @@ namespace SusaninPathFinding.Graph.NodeInfoTypes
         //    Type = type;
         //}
 
+        public object Clone()
+        {
+            return new Passable();
+        }
     }
 }

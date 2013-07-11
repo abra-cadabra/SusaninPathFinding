@@ -24,7 +24,16 @@ namespace SusaninPathFindingTests.Graph
         public override void Setup()
         {
             _graph = new Grid3D(6, 5, 2, new Cell3D(92, 92, 128));
+            
             Grid3D grid = (Grid3D)_graph;
+
+            for (int j = 0; j < 5; j++)
+            {
+                for (int i = 0; i < 6; i++)
+                {
+                    grid[i, j, 0].Info = new Passable();
+                }
+            }
 
             grid.Edges[grid[3, 0, 0], grid[4, 1, 0]] = new CellEdge(new Impassable());
             grid.Edges[grid[4, 0, 0], grid[4, 1, 0]] = new CellEdge(new Impassable());

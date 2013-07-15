@@ -84,7 +84,7 @@ namespace SusaninPathFindingUDKInterface
             return CellType.Na;
         }
 
-        public static IMovementAlgorithm<Cell> GraphAgentFromMovementType(MovementType type, Grid3D graph)
+        public static ITraversalStrategy<Cell> GraphAgentFromMovementType(MovementType type, Grid3D graph)
         {
             switch(type)
             {

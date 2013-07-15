@@ -20,6 +20,12 @@ namespace SusaninPathFinding.Source.Graph
 
         int SizeZ { get; set; }
 
+        int RealSizeX { get; }
+
+        int RealSizeY { get; }
+
+        int RealSizeZ { get; }
+
         CellEdgeCollection Edges { get;}
         IPolygon Polygon { get; set; }
 

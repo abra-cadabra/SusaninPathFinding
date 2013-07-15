@@ -14,7 +14,7 @@ namespace SusaninPathFinding.Graph
     /// <remarks><para>
     /// <b>IGraph2D</b> provides a graph suitable for pathfinding and other generic graph
     /// algorithms. All nodes map to locations and regions in two-dimensional space. Connected nodes
-    /// can be navigated by mobile objects, typically represented by an <see cref="IMovementAlgorithm{T}"/>
+    /// can be navigated by mobile objects, typically represented by an <see cref="ITraversalStrategy{T}"/>
     /// instance.
     /// </para><para>
     /// <b>IGraph2D</b> makes no assumptions about the underlying topology. Representable topologies
@@ -27,7 +27,7 @@ namespace SusaninPathFinding.Graph
 
     public interface IGraph<TNode>
     {
-        #region Connectivity
+        #region Properties
 
         /// <summary>
         /// Gets the maximum number of direct neighbors for any <see cref="IGraph{TNode}"/> node.
@@ -41,10 +41,6 @@ namespace SusaninPathFinding.Graph
 
         int Connectivity { get; }
 
-        #endregion
-
-        #region NodeCount
-
         /// <summary>
         /// Gets the total number of <see cref="Nodes"/> in the <see cref="IGraph2D{TNode}"/>.</summary>
         /// <value>
@@ -53,10 +49,6 @@ namespace SusaninPathFinding.Graph
         /// <b>NodeCount</b> never returns a negative value.</remarks>
 
         int NodeCount { get; }
-
-        #endregion
-
-        #region Nodes
 
         /// <summary>
         /// Gets an <see cref="IEnumerable{T}"/> collection that contains all nodes in the <see
@@ -72,7 +64,7 @@ namespace SusaninPathFinding.Graph
 
         #endregion
 
-        #region Contains
+        #region Functions
 
         /// <summary>
         /// Determines whether the <see cref="IGraph2D{TNode}"/> contains the specified node.</summary>
@@ -89,10 +81,6 @@ namespace SusaninPathFinding.Graph
         /// e.g. a null reference.</remarks>
 
         bool Contains(TNode node);
-
-        #endregion
-
-        #region GetDistance
 
         /// <summary>
         /// Returns the distance between the two specified <see cref="IGraph2D{TNode}"/> nodes.
@@ -119,7 +107,7 @@ namespace SusaninPathFinding.Graph
         /// than the distance between any two nodes from the same sequence.
         /// </item><item>
         /// The distance between two valid nodes is always equal to or less than the result of <see
-        /// cref="IMovementAlgorithm{T}.GetStepCost"/> for the same two nodes.
+        /// cref="ITraversalStrategy{T}.GetStepCost"/> for the same two nodes.
         /// </item><item>
         /// The distance between two valid nodes remains unchanged if the arguments are reversed.
         /// </item><item>
@@ -131,10 +119,6 @@ namespace SusaninPathFinding.Graph
         /// cref="IGraph2D{TNode}"/> instance, e.g. a null reference.</para></remarks>
 
         double GetManhettenDistance(TNode source, TNode target);
-
-        #endregion
-
-        #region GetNearestNode
 
         /// <summary>
         /// Gets the <see cref="IGraph2D{TNode}"/> node that is nearest to the specified location, in
@@ -156,10 +140,6 @@ namespace SusaninPathFinding.Graph
 
         TNode GetNearestNode(Vector3 location);
 
-        #endregion
-
-        #region GetNearestNode
-
         /// <summary>
         /// Gets the <see cref="IGraph2D{TNode}"/> node that is nearest to the specified location, in
         /// world coordinates.</summary>
@@ -180,10 +160,6 @@ namespace SusaninPathFinding.Graph
 
         TNode GetNearestNode(int x, int y, int z);
 
-        #endregion
-
-        #region GetNeighbors(TNode)
-
         /// <summary>
         /// Returns all direct neighbors of the specified <see cref="IGraph2D{TNode}"/> node.</summary>
         /// <param name="node">
@@ -200,7 +176,7 @@ namespace SusaninPathFinding.Graph
         /// part of the <see cref="IGraph2D{TNode}"/>.
         /// </para><para>
         /// <b>GetNeighbors</b> returns the complete set of target nodes for which <see
-        /// cref="IMovementAlgorithm{T}.CanMakeStep"/> could possibly succeed, assuming the specified
+        /// cref="ITraversalStrategy{T}.CanMakeStep"/> could possibly succeed, assuming the specified
         /// <paramref name="node"/> is the source node.
         /// </para><para>
         /// <b>GetNeighbors</b> should throw an <see cref="ArgumentException"/> only if the
@@ -209,20 +185,12 @@ namespace SusaninPathFinding.Graph
 
         IList<TNode> GetNeighbors(TNode node);
 
-        #endregion
-
-        //IList<TNode> GetConnections(TNode node);
-
-        //TNode SetConnection(TNode from, TNode to);
-
-        #region GetNeighbors(TNode, IGraphAgent<TNode>)
-
         /// <summary>
-        /// Returns all direct neighbors of the specified <see cref="IGraph2D{TNode}"/> node which can be passed by <see cref="IMovementAlgorithm{TNode}"/> agent.</summary>
+        /// Returns all direct neighbors of the specified <see cref="IGraph2D{TNode}"/> node which can be passed by <see cref="ITraversalStrategy{TNode}"/> agent.</summary>
         /// <param name="node">
         /// The <see cref="IGraph2D{TNode}"/> node whose direct neighbors to return.</param>
         /// <param name="agent">
-        /// The <see cref="IMovementAlgorithm{TNode}"/> agent which should be able to pass returned nodes.</param>
+        /// The <see cref="ITraversalStrategy{TNode}"/> agent which should be able to pass returned nodes.</param>
         /// <returns>
         /// An <see cref="IList{T}"/> containSing all valid <see cref="IGraph2D{TNode}"/> nodes that are
         /// directly connected with the specified <paramref name="node"/>. The number of elements is
@@ -235,7 +203,7 @@ namespace SusaninPathFinding.Graph
         /// part of the <see cref="IGraph2D{TNode}"/>.
         /// </para><para>
         /// <b>GetNeighbors</b> returns the complete set of target nodes for which <see
-        /// cref="IMovementAlgorithm{T}.CanMakeStep"/> could possibly succeed, assuming the specified
+        /// cref="ITraversalStrategy{T}.CanMakeStep"/> could possibly succeed, assuming the specified
         /// <paramref name="node"/> is the source node.
         /// </para><para>
         /// <b>GetNeighbors</b> should throw an <see cref="ArgumentException"/> only if theSS
@@ -243,10 +211,6 @@ namespace SusaninPathFinding.Graph
         /// instance, e.g. a null reference.</para></remarks>
         /// 
         IList<TNode> GetNeighbors(TNode node, Object agent);
-
-        #endregion
-
-        #region GetWorldLocation
 
         /// <summary>
         /// Gets the location of the specified <see cref="IGraph2D{TNode}"/> node, in world coordinates.
@@ -269,13 +233,6 @@ namespace SusaninPathFinding.Graph
         /// </para></remarks>
 
         Vector3 GetWorldLocation(Vector3 node);
-
-        #endregion
-
-
-
-
-        #region GetWorldRegion
 
         /// <summary>
         /// Gets the region covered by the specified <see cref="IGraph2D{TNode}"/> node, in world
@@ -302,5 +259,6 @@ namespace SusaninPathFinding.Graph
         Vector3[] GetWorldRegion(TNode node);
 
         #endregion
+
     }
 }

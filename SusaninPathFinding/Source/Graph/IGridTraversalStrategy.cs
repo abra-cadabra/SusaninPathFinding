@@ -6,7 +6,7 @@ using SusaninPathFinding.Source.Graph;
 
 namespace SusaninPathFinding.Graph
 {
-    public interface IGridMovementAlgorithm : IMovementAlgorithm<Cell>
+    public interface IGridTraversalStrategy : ITraversalStrategy<Cell>
     {
         IGrid Grid { get; set; }
     }

@@ -26,7 +26,7 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// <param name="node">
         /// The <see cref="IGraph2D{TNode}"/> node that the <see cref="PathNode{T}"/> represents.
         /// </param>
-        /// <param name="children">
+        /// <param name="childrenCount">
         /// The initial capacity of the <see cref="Children"/> collection.</param>
         /// <exception cref="ArgumentOutOfRangeException">
         /// <paramref name="children"/> is less than zero.</exception>
@@ -35,10 +35,10 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// cref="IGraph2D{TNode}.Connectivity"/> of the <see cref="IGraph2D{TNode}"/> instance on which the
         /// path search is performed, so as to avoid costly reallocations.</remarks>
 
-        public PathNodeCell(Cell node, Grid3D grid, int children)
+        public PathNodeCell(Cell node, Grid3D grid, int childrenCount)
             : base(node, node.Polygon, grid)
         {
-            _children = new ListEx<PathNodeCell>(children);
+            _children = new ListEx<PathNodeCell>(childrenCount);
         }
 
         #endregion

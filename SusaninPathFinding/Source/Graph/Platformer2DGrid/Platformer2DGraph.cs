@@ -16,15 +16,15 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
         {
         }
 
-        public new IList<Cell> GetNeighbors(Cell node, IMovementAlgorithm<Cell> agent)
+        public new IList<Cell> GetNeighbors(Cell node, ITraversalStrategy<Cell> agent)
         {
-            if (!(agent is IGridMovementAlgorithm))
-                throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridMovementAlgorithm)));
+            if (!(agent is IGridTraversalStrategy))
+                throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridTraversalStrategy)));
 
-            return GetNeighbors(node, (IGridMovementAlgorithm)agent);
+            return GetNeighbors(node, (IGridTraversalStrategy)agent);
         }
 
-        public new IList<Cell> GetNeighbors(Cell node, IPlatformer2DMovementAlgorithm agent = null)
+        public new IList<Cell> GetNeighbors(Cell node, IPlatformerTraversalStrategy agent = null)
         {
             float x, y;
             int dt;

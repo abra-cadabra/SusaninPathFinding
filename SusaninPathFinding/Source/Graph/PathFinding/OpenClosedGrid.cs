@@ -96,6 +96,10 @@ namespace SusaninPathFinding.Source.Graph.PathFinding
         public int SizeY { get; set; }
         public int SizeZ { get; set; }
 
+        public int RealSizeX { get; private set; }
+        public int RealSizeY { get; private set; }
+        public int RealSizeZ { get; private set; }
+
         public CellEdgeCollection Edges { get; private set; }
 
         public IPolygon Polygon { get; set; }
@@ -151,7 +155,7 @@ namespace SusaninPathFinding.Source.Graph.PathFinding
             throw new NotImplementedException();
         }
 
-        public IList<Cell> GetNeighbors(Cell node, IGridMovementAlgorithm agent)
+        public IList<Cell> GetNeighbors(Cell node, IGridTraversalStrategy agent)
         {
             IList<Cell> neighbors = new List<Cell>();//GraphDirection.Offsets.Length);
             if (agent != null && agent.Grid != Grid)

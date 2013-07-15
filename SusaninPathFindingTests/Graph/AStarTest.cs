@@ -19,7 +19,7 @@ namespace SusaninPathFindingTests.Graph
     class AStarTest : TestOf<AStar<Cell>>
     {
         private IGraph<Cell> _graph;
-        private IMovementAlgorithm<Cell> _agent;
+        private ITraversalStrategy<Cell> _agent;
  
         public override void Setup()
         {

@@ -12,7 +12,7 @@ using SusaninPathFinding.Source.Graph;
 
 namespace SusaninPathFinding.Graph
 {
-    public class RuningManAlgorithm : IGridMovementAlgorithm
+    public class RuningManAlgorithm : IGridTraversalStrategy
     {
         //public PolygonGrid3D Nodes { get; set; }
         public IGrid Grid { get; set; }

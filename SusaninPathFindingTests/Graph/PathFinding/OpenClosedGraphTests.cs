@@ -20,7 +20,7 @@ namespace SusaninPathFindingTests.Graph.PathFinding
 
         public override void Setup()
         {
-            Map = Grid3DTest.CreateTestGrid();
+            Map = Grid3DTest.GenerateTestGrid();
             Tester = new OpenClosedGrid(Map);
         }
 
@@ -34,7 +34,7 @@ namespace SusaninPathFindingTests.Graph.PathFinding
             
         }
 
-        public static OpenClosedGrid GenerateOpenClosedList(Platformer2DGrid grid)
+        public static OpenClosedGrid GenerateOpenClosedList(Grid3D grid)
         {
             OpenClosedGrid list = new OpenClosedGrid(grid);
 

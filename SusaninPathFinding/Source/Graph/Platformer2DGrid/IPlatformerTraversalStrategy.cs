@@ -5,9 +5,8 @@ using System.Text;
 
 namespace SusaninPathFinding.Graph.Platformer2DGrid
 {
-    public interface IPlatformer2DMovementAlgorithm : IGridMovementAlgorithm
+    public interface IPlatformerTraversalStrategy : IGridTraversalStrategy
     {
-        float JumpAccel { get; set; }
-        float WalkSpeed { get; set; }
+        float G { get; set; }
     }
 }

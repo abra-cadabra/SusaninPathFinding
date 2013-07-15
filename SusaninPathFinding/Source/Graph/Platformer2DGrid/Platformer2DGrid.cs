@@ -26,13 +26,13 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
 
         public new IList<Cell> GetNeighbors(Cell node, Object agent)
         {
-            if (!(agent is IMovementAlgorithm<Cell>))
-                throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridMovementAlgorithm)));
+            if (!(agent is ITraversalStrategy<Cell>))
+                throw new ArgumentException(String.Format(Strings.ArgumentTypeMismatch, typeof(IGridTraversalStrategy)));
 
-            return GetNeighbors(node, (IPlatformer2DMovementAlgorithm)agent);
+            return GetNeighbors(node, (IPlatformerTraversalStrategy)agent);
         }
 
-        public new IList<Cell> GetNeighbors(Cell node, IPlatformer2DMovementAlgorithm agent = null)
+        public new IList<Cell> GetNeighbors(Cell node, IPlatformerTraversalStrategy agent = null)
         {
             float x, y;
             int dt;

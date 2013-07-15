@@ -8,6 +8,7 @@ using NUnit.Framework;
 using SusaninPathFinding.Geometry;
 using SusaninPathFinding.Graph;
 using SusaninPathFinding.Graph.NodeInfoTypes;
+using SusaninPathFinding.Graph.PathFinding;
 using SusaninPathFinding.Graph.Platformer2DGrid;
 using SusaninPathFinding.Source.Graph.PathFinding;
 using SusaninPathFindingTests.Graph.PathFinding;
@@ -18,11 +19,11 @@ namespace SusaninPathFindingTests.Graph.Platformer3DTest
     [TestFixture]
     class PlatformerCharacterAlgorithmTest : TestOf<PlatformerCharacter>
     {
-        public Platformer2DGrid Nodes;
+        public Grid3D Nodes;
 
         public override void Setup()
         {
-            Nodes = Platformer2DGraphTests.GeneratePlatformerMap();//new Platformer2DGraph(10, 10, 1, new Cell3D(10, 10, 10), new Empty());
+            Nodes = Grid3DTest.GeneratePlatformerMap();//new Platformer2DGraph(10, 10, 1, new Cell3D(10, 10, 10), new Empty());
 
             Tester = new PlatformerCharacter(Nodes, null);
             Tester.G = 9.8f;
@@ -75,39 +76,46 @@ namespace SusaninPathFindingTests.Graph.Platformer3DTest
         [Test]
         public void CanMakeStepForOpenClosedListTest()
         {
-            //OpenClosedGrid openClosedGrid = OpenClosedGraphTests.GenerateOpenClosedList(Nodes);
-            //Tester = new PlatformerCharacter(
-            //    openClosedGrid
-            //    , null);
+            OpenClosedGrid openClosedGrid = OpenClosedGraphTests.GenerateOpenClosedList(Nodes);
+            Tester = new PlatformerCharacter(
+                openClosedGrid
+                , null);
 
-            //var list = openClosedGrid[Nodes[3, 5, 0]].NeighborsPassableBy(Tester);
+            openClosedGrid[Nodes[3, 5, 0]] = new PathNodeCell();
+            var list = openClosedGrid[Nodes[3, 5, 0]].NeighborsPassableBy(Tester);
 
-            ////var list = Nodes[3, 5, 0].NeighborsPassableBy(Tester);
+            //var list = Nodes[3, 5, 0].NeighborsPassableBy(Tester);
 
-            //Cell result = list.Find
-            //(
-            //    delegate(Cell node)
-            //    {
-            //        return (node == Nodes[3, 6, 0]
-            //                || node == Nodes[2, 6, 0]
-            //                || node == Nodes[4, 6, 0]);
-            //    }
-            //);
-            //result.Should().NotBeNull();
+            Cell result = list.Find
+            (
+                delegate(Cell node)
+                {
+                    return (node == Nodes[3, 6, 0]
+                            || node == Nodes[2, 6, 0]
+                            || node == Nodes[4, 6, 0]);
+                }
+            );
+            result.Should().NotBeNull();
 
-            //result = list.Find
-            //(
-            //    delegate(Cell node)
-            //    {
-            //        return (node == Nodes[2, 5, 0]
-            //                || node == Nodes[4, 5, 0]
-            //                || node == Nodes[2, 4, 0]
-            //                || node == Nodes[3, 4, 0]
-            //                || node == Nodes[4, 4, 0]);
-            //    }
-            //);
-            //result.Should().BeNull();
+            result = list.Find
+            (
+                delegate(Cell node)
+                {
+                    return (node == Nodes[2, 5, 0]
+                            || node == Nodes[4, 5, 0]
+                            || node == Nodes[2, 4, 0]
+                            || node == Nodes[3, 4, 0]
+                            || node == Nodes[4, 4, 0]);
+                }
+            );
+            result.Should().BeNull();
 
+        }
+
+        [Test]
+        public void SubgraphTest()
+        {
+            Nodes.GetSubgraph(node, Tester);
         }
 
         [Test]
@@ -189,8 +197,8 @@ namespace SusaninPathFindingTests.Graph.Platformer3DTest
         [Test]
         public void CanPass()
         {
-            //Tester.CanPass(Nodes[1, 9, 0]).Should().BeTrue();
-            //Tester.CanPass(Nodes[5, 9, 0]).Should().BeFalse();
+            Tester.CanPass(Nodes[1, 9, 0]).Should().BeTrue();
+            Tester.CanPass(Nodes[5, 9, 0]).Should().BeFalse();
         }
 
         [Test]

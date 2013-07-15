@@ -8,7 +8,7 @@ using SusaninPathFinding.Source.Graph;
 namespace SusaninPathFinding.Graph
 {
     /// TODO это название - пиздец. Нужно что-нибудь другое придумать
-    public interface IGridPathFindingMovementAlgorithm : IMovementAlgorithm<Cell>
+    public interface IGridPathFindingMovementAlgorithm : ITraversalStrategy<Cell>
     {
         IGrid Grid { get; set; }
     }

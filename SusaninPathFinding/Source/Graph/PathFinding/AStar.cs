@@ -33,7 +33,7 @@ namespace SusaninPathFinding.Graph.PathFinding
         #region Private Fields
 
         // search arguments
-        private IMovementAlgorithm<TNode> _agent;
+        private ITraversalStrategy<TNode> _agent;
         private TNode _source, _target;
         private double _relativeLimit;
         private Vector3 _targetWorld;
@@ -76,12 +76,12 @@ namespace SusaninPathFinding.Graph.PathFinding
         #region Agent
 
         /// <summary>
-        /// Gets the <see cref="IMovementAlgorithm{T}"/> for the last path search.</summary>
+        /// Gets the <see cref="ITraversalStrategy{T}"/> for the last path search.</summary>
         /// <value>
-        /// The <see cref="IMovementAlgorithm{T}"/> that was supplied to the last invocation of <see
+        /// The <see cref="ITraversalStrategy{T}"/> that was supplied to the last invocation of <see
         /// cref="FindBestPath"/>. The default is a null reference.</value>
 
-        public IMovementAlgorithm<TNode> Agent {
+        public ITraversalStrategy<TNode> Agent {
             [DebuggerStepThrough]
             get { return _agent; }
         }
@@ -201,7 +201,7 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// Gets the total cost of the best path found by the last successful path search.</summary>
         /// <value>
         /// The value of the <see cref="PathNode{T}.G"/> property of <see cref="BestNode"/>. This is
-        /// the sum of the <see cref="IMovementAlgorithm{T}.GetStepCost"/> results for all <see
+        /// the sum of the <see cref="ITraversalStrategy{T}.GetStepCost"/> results for all <see
         /// cref="Nodes"/>.</value>
         /// <remarks>
         /// <b>TotalCost</b> returns -1 if <see cref="BestNode"/> is a null reference. This is the
@@ -239,7 +239,7 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// Finds the best path to move the specified agent from one specified <see cref="Graph"/>
         /// node to another.</summary>
         /// <param name="agent">
-        /// The <see cref="IMovementAlgorithm{T}"/> that performs the movement.</param>
+        /// The <see cref="ITraversalStrategy{T}"/> that performs the movement.</param>
         /// <param name="source">
         /// The source node within <see cref="Graph"/>.</param>
         /// <param name="target">
@@ -259,8 +259,8 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// <see cref="Nodes"/>, and <see cref="TotalCost"/> properties to the results of the path
         /// search.
         /// </para><para>
-        /// <b>FindBestPath</b> calls <see cref="IMovementAlgorithm{T}.CanOccupy"/> and <see
-        /// cref="IMovementAlgorithm{T}.IsNearTarget"/> on the specified <paramref name="agent"/> to
+        /// <b>FindBestPath</b> calls <see cref="ITraversalStrategy{T}.CanOccupy"/> and <see
+        /// cref="ITraversalStrategy{T}.IsNearTarget"/> on the specified <paramref name="agent"/> to
         /// determine whether a given <see cref="BestNode"/> candidate is acceptable. Depending on
         /// the implementation of <b>IsNearTarget</b>, the <see cref="PathNode{T}.Node"/> of the
         /// final <see cref="BestNode"/> may differ from the specified <paramref name="target"/>,
@@ -275,7 +275,7 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// <paramref name="target"/> are calculated, and the node is ignored if the sum exceeds
         /// <b>AbsoluteLimit</b>.</para></remarks>
 
-        public bool FindBestPath(IMovementAlgorithm<TNode> agent, TNode source, TNode target)
+        public bool FindBestPath(ITraversalStrategy<TNode> agent, TNode source, TNode target)
         {
             if (agent == null)
                 throw new ArgumentNullException("agent");
@@ -383,9 +383,9 @@ namespace SusaninPathFinding.Graph.PathFinding
         /// <b>GetLastNode</b> searches for the <see cref="PathNode{T}"/> that is the last <see
         /// cref="PathNode{T}.Parent"/> of <see cref="BestNode"/> whose <see cref="PathNode{T}.G"/>
         /// value does not exceed the specified <paramref name="maxCost"/>, and for which <see
-        /// cref="IMovementAlgorithm{T}.CanOccupy"/> succeeds with the moving <see cref="Agent"/>.
+        /// cref="ITraversalStrategy{T}.CanOccupy"/> succeeds with the moving <see cref="Agent"/>.
         /// </para><para>
-        /// If <see cref="IMovementAlgorithm{T}.RelaxedRange"/> is <c>true</c> for the moving <see
+        /// If <see cref="ITraversalStrategy{T}.RelaxedRange"/> is <c>true</c> for the moving <see
         /// cref="Agent"/>, the <see cref="PathNode{T}.G"/> value of the returned <b>PathNode</b>
         /// may exceed <paramref name="maxCost"/> if the <see cref="PathNode{T}.G"/> value of its
         /// <see cref="PathNode{T}.Parent"/> node is strictly less than <paramref name="maxCost"/>.

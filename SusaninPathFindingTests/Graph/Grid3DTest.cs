@@ -158,9 +158,35 @@ namespace SusaninPathFindingTests.Graph
 
 
 
-        public static Grid3D CreateTestGrid()
+        public static Grid3D GenerateTestGrid()
         {
             Grid3D grid = new Grid3D(10, 10, 1, new Cell3D(10, 10, 10), new Passable());
+
+            return grid;
+        }
+
+        public static Grid3D GeneratePlatformerMap()
+        {
+            Grid3D grid = new Grid3D(10, 10, 1, new Cell3D(10, 10, 1), new Empty());
+            for (int i = 0; i < 10; i++)
+            {
+                grid[i, 8, 0].Info = new Passable();
+                grid[i, 9, 0].Info = new Impassable();
+            }
+
+            grid[3, 2, 0].Info = new Passable();
+            grid[3, 3, 0].Info = new Impassable();
+
+            grid[3, 6, 0].Info = new Passable();
+            grid[3, 7, 0].Info = new Impassable();
+
+            grid[6, 7, 0].Info = new Passable();
+            grid[7, 7, 0].Info = new Passable();
+            grid[8, 7, 0].Info = new Passable();
+
+            grid[6, 8, 0].Info = new Impassable();
+            grid[7, 8, 0].Info = new Impassable();
+            grid[8, 8, 0].Info = new Impassable();
 
             return grid;
         }

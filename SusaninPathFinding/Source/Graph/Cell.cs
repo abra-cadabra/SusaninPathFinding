@@ -76,7 +76,7 @@ namespace SusaninPathFinding.Graph
 
         #region Functions
 
-        public List<Cell> NeighborsPassableBy(IMovementAlgorithm<Cell> agent)
+        public List<Cell> NeighborsPassableBy(ITraversalStrategy<Cell> agent)
         {
             return (List<Cell>)Grid.GetNeighbors(this, agent);
         }

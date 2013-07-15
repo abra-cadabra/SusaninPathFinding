@@ -13,30 +13,37 @@ using SusaninPathFinding.Source.Graph;
 
 namespace SusaninPathFinding.Graph.Platformer2DGrid
 {
-    public class PlatformerCharacter : IPlatformer2DMovementAlgorithm
+    public class PlatformerCharacter : IPlatformerTraversalStrategy
     {
         //public PolygonGrid3D Nodes { get; set; }
-        
+        #region Properties
+
+        public float G { get; set; }
         public Box BindingBox { get; set; }
         public float JumpAccel { get; set; }
-        public float G { get; set; }
         public float WalkSpeed { get; set; }
         public float Vy { get; protected set; }
         public Vector3 Position { get; protected set; }
+        public IGrid Grid { get; set; }
 
-        IGrid IGridMovementAlgorithm.Grid
-        { 
-            get { return Grid; }
-            set { Grid = (Platformer2DGrid)value; }
+        public bool RelaxedRange
+        {
+            get { return false; }
         }
 
-        public Platformer2DGrid Grid { get; set; }
+        #endregion
+        
+        #region Constructors
 
         public PlatformerCharacter(IGrid nodes, Vector3 position)
         {
-            Grid = (Platformer2DGrid)nodes;
+            Grid = nodes;
             Position = position;
         }
+
+        #endregion
+
+        #region Functions
 
         public bool CanMakeStep(Cell source, Cell target)
         {
@@ -225,12 +232,6 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
             return (distance.AlmostEquals(0, 0));
         }
 
-        
-
-        public bool RelaxedRange
-        {
-            get { return false; }
-        }
 
         /// <summary>
         /// Determines whether the agent can pass through target node or not
@@ -242,7 +243,7 @@ namespace SusaninPathFinding.Graph.Platformer2DGrid
             return (target.Info is Passable || target.Info is Ladder);
         }
 
-
+        #endregion
         
     }
 }
